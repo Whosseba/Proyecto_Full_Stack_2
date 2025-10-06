@@ -4,43 +4,80 @@
   left: 0;
   width: 100%;
   padding: 1rem 2rem;
-  background-color: var(--color-boton);
+  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
   display: flex;
-  justify-content: flex-start; /* izquierda */
+  justify-content: flex-start; 
   align-items: center;
   gap: 1rem;
   z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  font-family: 'Orbitron', sans-serif;
+  border-bottom: 2px solid #646cff;
 }
 
 .barra-navegacion a,
 .barra-navegacion button {
   margin-right: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
   border: none;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .barra-navegacion a {
-  background-color: var(--color-primario);
+  background-color: #646cff;
   color: #fff;
+  box-shadow: 0 3px 6px rgba(100, 108, 255, 0.4);
 }
 
 .barra-navegacion a:hover {
-  background-color: var(--color-primario-hover);
+  background-color: #535bf2;
+  box-shadow: 0 6px 12px rgba(100, 108, 255, 0.6);
+  transform: translateY(-2px);
 }
 
 .barra-navegacion button {
-  background-color: #ff4d4f; /* rojo para logout */
+  background-color: #ff4d4f;
   color: #fff;
+  box-shadow: 0 3px 6px rgba(255, 77, 79, 0.4);
 }
 
 .barra-navegacion button:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 77, 79, 0.6);
 }
 
-/* Espacio para que el contenido no quede debajo de la barra */
 body {
-  padding-top: 60px;
+  padding-top: 70px;
+  background-color: #121212; 
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: #646cff;
+  transition: color 0.3s;
+}
+a:hover {
+  color: #535bf2;
+}
+
+button {
+  border-radius: 6px;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: #1a1a1a;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(255, 255, 255, 0.1);
+}
+button:hover {
+  background-color: #646cff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(100, 108, 255, 0.4);
 }

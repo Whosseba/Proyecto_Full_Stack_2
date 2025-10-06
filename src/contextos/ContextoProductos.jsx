@@ -1,11 +1,13 @@
 import { createContext, useState, useContext } from "react";
+import laptopImg from "../imagenes/laptops/laptop.jpg";
+import mouseImg from "../imagenes/accesorios/mouse.jpg";
 
 export const ContextoProductos = createContext();
 
 export const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([
-    { id: 1, nombre: "Laptop Gamer", precio: 1500, descripcion: "Laptop de alto rendimiento", imagen: "" },
-    { id: 2, nombre: "Mouse RGB", precio: 50, descripcion: "Mouse ergonómico con RGB", imagen: "" },
+    { id: 1, nombre: "Laptop Gamer", precio: 1500, descripcion: "Laptop de alto rendimiento", categoria: "laptops", imagen: laptopImg },
+    { id: 2, nombre: "Mouse RGB", precio: 50, descripcion: "Mouse ergonómico con RGB", categoria: "mouses", imagen: mouseImg },
   ]);
 
   const agregarProducto = (nuevo) => {

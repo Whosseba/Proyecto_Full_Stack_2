@@ -8,7 +8,7 @@ const PaginaLogin = () => {
   const [nombre, setNombre] = useState("");
   const [mensajeError, setMensajeError] = useState("");
 
-  // Simulamos una "base de datos" de usuarios registrados
+  //simulacion de base de datos de usuarios registrados :)
   const usuariosRegistrados = [
     { nombre: "admin" },
     { nombre: "seba" },
@@ -20,7 +20,7 @@ const PaginaLogin = () => {
 
     if (encontrado) {
       login(encontrado);
-      navigate("/"); // Redirige a la página principal
+      navigate("/"); 
     } else {
       setMensajeError("No existe ese usuario, vaya a registrarse");
     }

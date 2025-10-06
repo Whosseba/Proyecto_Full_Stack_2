@@ -6,10 +6,14 @@ const BarraNavegacion = () => {
 
   return (
     <nav className="barra-navegacion">
-      <div className="botones">
+      <Link to="/">TechStore</Link>
+      <Link to="/laptops">Laptops</Link>
+      <Link to="/mouses">Mouses</Link>
+
+      <div className="ms-auto">
         {usuario ? (
           <>
-            <span className="usuario">Hola, {usuario.nombre}</span>
+            <span className="text-white me-2">{usuario.nombre}</span>
             <button onClick={logout}>Cerrar sesión</button>
           </>
         ) : (
