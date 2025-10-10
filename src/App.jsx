@@ -8,8 +8,7 @@ import PiePagina from "./componentes/PiePagina";
 import PaginaLogin from "./paginas/PaginaLogin";
 import PaginaRegistro from "./paginas/PaginaRegistro";
 import PaginaProductos from "./paginas/PaginaProductos";
-import Laptops from "./paginas/Laptops";
-import Mouses from "./paginas/Mouses";
+import DetalleProducto from "./paginas/DetalleProducto";
 
 function App() {
   return (
@@ -22,8 +21,8 @@ function App() {
               <Route path="/" element={<PaginaProductos />} />
               <Route path="/login" element={<PaginaLogin />} />
               <Route path="/registro" element={<PaginaRegistro />} />
-              <Route path="/laptops" element={<Laptops />} />
-              <Route path="/mouses" element={<Mouses />} />
+              <Route path="/categoria/:categoria" element={<PaginaProductos />} />
+              <Route path="/producto/:id" element={<DetalleProducto />} />
             </Routes>
           </div>
           <PiePagina />
