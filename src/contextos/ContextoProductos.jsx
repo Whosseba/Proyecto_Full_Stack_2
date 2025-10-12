@@ -4,6 +4,14 @@ import mouseImg from "../imagenes/accesorios/mouse.jpg";
 import tecladoImg from "../imagenes/accesorios/teclado.jpg";
 import monitorImg from "../imagenes/accesorios/monitor.jpg";
 import gabineteImg from "../imagenes/accesorios/gabinete.jpg";
+import mouseG203Img from "../imagenes/accesorios/mouseG203.jpg";
+import mouseHXImg from "../imagenes/accesorios/mouseHX.jpg";
+import mouseG305Img from "../imagenes/accesorios/mouseG305.jpg";
+import mouseRDragonImg from "../imagenes/accesorios/mouseRDragon.jpg";
+import mouseRazerImg from "../imagenes/accesorios/mouseRazer.jpg";
+
+
+
 
 export const ContextoProductos = createContext();
 
@@ -78,6 +86,81 @@ export const ProveedorProductos = ({ children }) => {
         "Espacio para 6 ventiladores",
         "Soporta placas ATX, mATX y ITX",
         "RGB controlable"
+      ]
+    },
+    {
+      id: 6,
+      nombre: "Mouse Gamer alambrico Logitech G203",
+      precio: 20,
+      descripcion: "Mouse alambrico",
+      categoria: "mouses",
+      imagen: mouseG203Img,
+      especificaciones: [
+        "Gamer",
+        "Sensibilidad ajustable entre 200-8000 DPI",
+        "diseño clásico de seis botones",
+        "Alambrico Cable USB",
+        "vida util 2 años"
+      ]
+    },
+    {
+      id: 7,
+      nombre: "Mouse Gamer Hyperx Pulsefire",
+      precio: 20,
+      descripcion: "Mouse alambrico",
+      categoria: "mouses",
+      imagen: mouseHXImg,
+      especificaciones: [
+        "Gamer",
+        "Sensibilidad ajustable 6200 DPI",
+        "diseño de siete botones",
+        "Alambrico Cable USB",
+        "RGB"
+      ]
+    },
+    {
+      id: 8,
+      nombre: "Mouse Gamer Inalambrico Logitech G305",
+      precio: 20,
+      descripcion: "Mouse inalambrico",
+      categoria: "mouses",
+      imagen: mouseG305Img,
+      especificaciones: [
+        "Gamer",
+        "Sensibilidad ajustable 12000 DPI",
+        "diseño de seis botones",
+        "Inalambrico con alcance de hasta 3m",
+        "RGB"
+      ]
+    },
+    {
+      id: 9,
+      nombre: "Mouse Gamer Redragon Cobra M711 RGB Negro",
+      precio: 20,
+      descripcion: "Mouse alambrico",
+      categoria: "mouses",
+      imagen: mouseRDragonImg,
+      especificaciones: [
+        "Gamer",
+        "mouse alambrico",
+        "Sensibilidad ajustable de 100-10.000 DPI",
+        "Peso de 0.105 kg",
+        "RGB CHROMA"
+      ]
+    },
+    {
+      id: 10,
+      nombre: "Mouse Gamer Razer DeathAdder V2 X HyperSpeed",
+      precio: 20,
+      descripcion: "Mouse inalambrico",
+      categoria: "mouses",
+      imagen: mouseRazerImg,
+      especificaciones: [
+        "Gamer",
+        "mouse inalambrico",
+        "Sensibilidad ajustable de hasta 14.000 DPI",
+        "diseño de 7 botones programables",
+        "Bluetooth"
       ]
     }
   ]);
