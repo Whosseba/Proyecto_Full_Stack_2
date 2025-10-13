@@ -15,8 +15,11 @@ function App() {
     <ProveedorAuth>
       <ProveedorProductos>
         <Router>
+
+          <div className="d-flex flex-column min-vh-100">
+
           <BarraNavegacion />
-          <div className="container mt-5 pt-4">
+          <div className="container mt-5 pt-4 flex-grow-1">
             <Routes>
               <Route path="/" element={<PaginaProductos />} />
               <Route path="/login" element={<PaginaLogin />} />
@@ -26,6 +29,7 @@ function App() {
             </Routes>
           </div>
           <PiePagina />
+          </div>
         </Router>
       </ProveedorProductos>
     </ProveedorAuth>
