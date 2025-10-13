@@ -4,6 +4,7 @@ import mouseImg from "../imagenes/accesorios/mouse.jpg";
 import tecladoImg from "../imagenes/accesorios/teclado.jpg";
 import monitorImg from "../imagenes/accesorios/monitor.jpg";
 import gabineteImg from "../imagenes/accesorios/gabinete.jpg";
+import mouse2Img from "../imagenes/accesorios/mouse2.jpg";
 
 export const ContextoProductos = createContext();
 
@@ -78,6 +79,21 @@ export const ProveedorProductos = ({ children }) => {
         "Espacio para 6 ventiladores",
         "Soporta placas ATX, mATX y ITX",
         "RGB controlable"
+      ]
+    },
+    { 
+      id: 6,
+      nombre: "Mouse Hp M10",
+      precio: 45,
+      descripcion: "Mouse Alámbrico Hp M10 Negro Bk",
+      categoria: "mouse",
+      imagen: mouse2Img,
+      especificaciones: [
+        "Resolución del sensor de 1200 dpi para un seguimiento preciso y fluido.",
+        "Conexión USB para fácil uso inmediato.",
+        "Orientación ambidiestra para comodidad en cualquier mano.",
+        "Tres botones para un control eficiente.",
+        "Velocidad máxima de 1200 ips para una respuesta rápida."
       ]
     }
   ]);
