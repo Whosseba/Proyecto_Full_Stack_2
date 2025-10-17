@@ -10,11 +10,14 @@ import PaginaRegistro from "./paginas/PaginaRegistro";
 import PaginaProductos from "./paginas/PaginaProductos";
 import DetalleProducto from "./paginas/DetalleProducto";
 
+import './App.css'
+
 function App() {
   return (
     <ProveedorAuth>
       <ProveedorProductos>
         <Router>
+          <div className="d-flex flex-column min-vh-100 ">
           <BarraNavegacion />
           <div className="container mt-5 pt-4">
             <Routes>
@@ -26,6 +29,7 @@ function App() {
             </Routes>
           </div>
           <PiePagina />
+          </div>
         </Router>
       </ProveedorProductos>
     </ProveedorAuth>
