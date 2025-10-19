@@ -5,7 +5,7 @@ const BarraNavegacion = () => {
   const { usuario, logout } = useAuth();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top barra-navegacion">
       <div className="container">
         <Link className="navbar-brand" to="/">TechStore</Link>
         <button 
@@ -51,7 +51,8 @@ const BarraNavegacion = () => {
             ) : (
               <>
                 <Link className="btn btn-outline-light me-2" to="/login">Login</Link>
-                <Link className="btn btn-outline-light" to="/registro">Registro</Link>
+                <Link className="btn btn-outline-light me-2" to="/registro">Registro</Link>
+                <button className="btn btn-outline-light me-2">Carrito</button>
               </>
             )}
           </div>
