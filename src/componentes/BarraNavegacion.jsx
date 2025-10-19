@@ -51,7 +51,8 @@ const BarraNavegacion = () => {
             ) : (
               <>
                 <Link className="btn btn-outline-light me-2" to="/login">Login</Link>
-                <Link className="btn btn-outline-light" to="/registro">Registro</Link>
+                <Link className="btn btn-outline-light me-2" to="/registro">Registro</Link>
+                <Link className="btn btn-outline-light" to="/carrito">Carrito</Link>
               </>
             )}
           </div>
