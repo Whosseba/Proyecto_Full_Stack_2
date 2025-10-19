@@ -18,7 +18,7 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 1,
       nombre: "Laptop Gamer",
-      precio: 1500,
+      precio: 1549990,
       descripcion: "Laptop de alto rendimiento",
       categoria: "laptops",
       imagen: laptopImg,
@@ -33,7 +33,7 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 2,
       nombre: "Mouse RGB",
-      precio: 50,
+      precio: 6600,
       descripcion: "Mouse ergonómico con RGB",
       categoria: "mouses",
       imagen: mouseImg,
@@ -61,7 +61,7 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 4,
       nombre: "Monitor 27\" 4K",
-      precio: 400,
+      precio: 200000,
       descripcion: "Monitor Ultra HD",
       categoria: "monitores",
       imagen: monitorImg,
@@ -75,7 +75,7 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 5,
       nombre: "Gabinete Gamer",
-      precio: 200,
+      precio: 80000,
       descripcion: "Gabinete con ventilación RGB",
       categoria: "gabinetes",
       imagen: gabineteImg,
@@ -89,7 +89,7 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 6,
       nombre: "Mouse Hp M10",
-      precio: 45,
+      precio: 4500  ,
       descripcion: "Mouse Alámbrico Hp M10 Negro Bk",
       categoria: "mouses",
       imagen: mouse2Img,
