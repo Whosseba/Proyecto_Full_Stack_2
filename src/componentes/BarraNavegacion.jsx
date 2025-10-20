@@ -50,19 +50,6 @@ const BarraNavegacion = ({ onBuscar }) => {
             </li>
           </ul>
 
-          <form className="d-flex me-3" role="search" onSubmit={e => e.preventDefault()}>
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Buscar..."
-              aria-label="Buscar"
-              onChange={manejarCambio}
-            />
-            <button className="btn btn-outline-light" type="button">
-              <FaSearch />
-            </button>
-          </form>
-
           <div className="d-flex align-items-center">
             <Link to="/carrito" className="btn btn-outline-light position-relative me-3">
               <FaShoppingCart />
