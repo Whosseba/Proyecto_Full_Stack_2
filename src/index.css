@@ -1,0 +1,66 @@
+:root {
+  /* Fondo*/
+  --color-fondo: #121212; 
+  --color-fondo-claro: #242424;
+  /*Texto*/
+  --color-texto: #fff;
+  /* color primario */
+  --color-primario: #099EC8;
+  --color-primario-hover: #0099cc;
+  /*btn*/
+  --color-boton: #1a1a1a;
+  --color-boton-hover: var(--color-primario-hover);
+  --color-boton-claro: #444;
+}
+
+/*BODY */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0; 
+  padding-top: 70px; /* barra de navegación fija */
+
+  /* Colores y fuente */
+  background-color: var(--color-fondo); 
+  color: var(--color-texto);
+  font-family: 'Roboto', sans-serif;
+} 
+
+h1, h2, h3{
+  color: var(--color-primario);
+  margin-bottom: 1rem;
+}
+
+/*BOTONES */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent; 
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  
+  background-color: var(--color-fondo-claro);
+  color: #fff;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 6px var(--color-fondo);
+}
+
+button:hover {
+  background-color: var(--color-boton-hover); 
+  border-color: var(--color-primario);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px var(--color-fondo); 
+}
+
+/* ENLACES */
+a {
+  color: var(--color-primario); 
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--color-primario-hover);
+}
