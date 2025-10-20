@@ -35,8 +35,8 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 2,
       nombre: "Mouse RGB",
-      precio: 50,
-      precioOferta: 25,   
+      precio: 9000,
+      precioOferta: 6500,   
       enOferta: true,
       descripcion: "Mouse ergonómico con RGB",
       categoria: "mouses",
@@ -67,7 +67,7 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 4,
       nombre: "Monitor 27\" 4K",
-      precio: 400,
+      precio: 250000,
       descripcion: "Monitor Ultra HD",
       categoria: "monitores",
       imagen: monitorImg,
@@ -81,7 +81,7 @@ export const ProveedorProductos = ({ children }) => {
     { 
       id: 5,
       nombre: "Gabinete Gamer",
-      precio: 200,
+      precio: 120000,
       descripcion: "Gabinete con ventilación RGB",
       categoria: "gabinetes",
       imagen: gabineteImg,
