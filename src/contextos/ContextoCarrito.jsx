@@ -15,7 +15,7 @@ export const ProveedorCarrito = ({ children }) => {
     localStorage.setItem("carrito", JSON.stringify(carrito));
   }, [carrito]);
 
-  // 🎫 Generar código de compra aleatorio (mantiene tu lógica)
+  // Generar código de compra aleatorio (mantiene tu lógica)
   const generarCodigo = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let nuevoCodigo = "";
