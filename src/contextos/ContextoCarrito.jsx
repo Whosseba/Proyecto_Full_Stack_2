@@ -10,7 +10,7 @@ export const ProveedorCarrito = ({ children }) => {
 
   const [codigo, setCodigo] = useState("");
 
-  // 🔄 Guarda el carrito en localStorage cada vez que cambia
+  // Guarda el carrito en localStorage cada vez que cambia
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(carrito));
   }, [carrito]);
@@ -25,7 +25,7 @@ export const ProveedorCarrito = ({ children }) => {
     setCodigo(nuevoCodigo);
   };
 
-  // 🛒 Agregar producto al carrito
+  // Agregar producto al carrito
   const agregarAlCarrito = (producto) => {
     setCarrito((prev) => {
       const existe = prev.find((p) => p.id === producto.id);
@@ -39,25 +39,25 @@ export const ProveedorCarrito = ({ children }) => {
     });
   };
 
-  // ❌ Eliminar producto del carrito
+  // Eliminar producto del carrito
   const eliminarDelCarrito = (id) => {
     setCarrito((prev) => prev.filter((p) => p.id !== id));
   };
 
-  // 🧹 Vaciar carrito
+  // Vaciar carrito
   const vaciarCarrito = () => {
     setCarrito([]);
     setCodigo("");
     localStorage.removeItem("carrito");
   };
 
-  // 💰 Calcular total
+  // Calcular total
   const total = carrito.reduce(
     (acc, item) => acc + item.precio * item.cantidad,
     0
   );
 
-  // 🔢 Calcular cantidad total de productos
+  // Calcular cantidad total de productos
   const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
   return (
