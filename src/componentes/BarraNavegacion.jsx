@@ -57,7 +57,7 @@ const BarraNavegacion = () => {
               )}
             </Link>
 
-            {/* Usuario autenticado o no */}
+            {/* Usuario autenticado */}
             {usuario ? (
               <>
                 <span className="navbar-text text-white me-2">{usuario.nombre}</span>

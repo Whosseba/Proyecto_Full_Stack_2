@@ -1,8 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import BarraNavegacion from "../componentes/BarraNavegacion";
 import { vi } from "vitest";
-
 
 vi.mock("../contextos/ContextoAuth", () => ({
   useAuth: () => ({
@@ -11,7 +10,16 @@ vi.mock("../contextos/ContextoAuth", () => ({
   }),
 }));
 
-//  1. Prueba FUNCIONAL 
+vi.mock("../contextos/ContextoCarrito", () => ({
+  useCarrito: () => ({
+    carrito: [
+      { id: 1, nombre: "Producto 1", cantidad: 2 },
+      { id: 2, nombre: "Producto 2", cantidad: 1 },
+    ],
+  }),
+}));
+
+// 1. Prueba FUNCIONAL 
 test("debe mostrar el nombre del usuario logueado", () => {
   render(
     <MemoryRouter>
@@ -22,8 +30,7 @@ test("debe mostrar el nombre del usuario logueado", () => {
   expect(screen.getByText("Sebastián")).toBeInTheDocument();
 });
 
-
-//  2. Prueba con ERROR intencional
+// 2. Prueba con ERROR intencional
 test("debe fallar al no encontrar el texto 'Cerrar sesión ahora'", () => {
   render(
     <MemoryRouter>
@@ -34,8 +41,7 @@ test("debe fallar al no encontrar el texto 'Cerrar sesión ahora'", () => {
   expect(screen.getByText("Cerrar sesión ahora")).toBeInTheDocument();
 });
 
-
-//  3. Prueba que pasa 
+// 3. Prueba que pasa 
 test("debe mostrar el enlace de 'Laptops' dentro del menú Categorías", () => {
   render(
     <MemoryRouter>

@@ -5,44 +5,107 @@ const PaginaCarrito = () => {
   const { carrito, eliminarDelCarrito, vaciarCarrito, total } = useCarrito();
   const navigate = useNavigate();
 
-  const irAlCheckout = () => {
+  const irAPagar = () => {
     navigate("/checkout");
+  };
+
+  const containerStyle = {
+    minHeight: "100vh",
+    padding: "40px 20px",
+    background: "linear-gradient(135deg, #0f0f0f, #1a1a1a, #000000)",
+    color: "#fff",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+  };
+
+  const tableStyle = {
+    width: "100%",
+    borderCollapse: "collapse",
+    background: "rgba(20, 30, 50, 0.8)",
+    backdropFilter: "blur(10px)",
+    borderRadius: "12px",
+    overflow: "hidden",
+    boxShadow: "0 0 20px rgba(0,123,255,0.5)",
+  };
+
+  const thTdStyle = {
+    padding: "12px",
+    textAlign: "center",
+    borderBottom: "1px solid rgba(0,255,255,0.2)",
+    color: "#00f0ff",
+  };
+
+  const buttonStyle = {
+    padding: "10px 20px",
+    borderRadius: "8px",
+    border: "none",
+    fontWeight: "bold",
+    cursor: "pointer",
+    transition: "all 0.3s",
+  };
+
+  const deleteButton = {
+    ...buttonStyle,
+    backgroundColor: "#ff4d4d",
+    color: "#fff",
+  };
+
+  const deleteHover = {
+    backgroundColor: "#ff1a1a",
+    boxShadow: "0 0 10px #ff4d4d",
+  };
+
+  const actionButton = {
+    ...buttonStyle,
+    backgroundColor: "#0a74ff",
+    color: "#fff",
+  };
+
+  const actionHover = {
+    backgroundColor: "#00e5ff",
+    color: "#000",
+    boxShadow: "0 0 10px #00e5ff",
   };
 
   if (carrito.length === 0) {
     return (
-      <div className="container mt-4">
+      <div style={containerStyle}>
         <h2>🛒 Carrito de Compras</h2>
         <p>Tu carrito está vacío.</p>
-        <Link to="/" className="btn btn-primary">Volver a productos</Link>
+        <Link to="/" style={{ ...actionButton, textDecoration: "none" }}>
+          Volver a productos
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="container mt-4">
+    <div style={containerStyle}>
       <h2>🛒 Carrito de Compras</h2>
 
-      <table className="table table-striped mt-3">
+      <table style={tableStyle}>
         <thead>
           <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-            <th>Acción</th>
+            <th style={thTdStyle}>Producto</th>
+            <th style={thTdStyle}>Precio</th>
+            <th style={thTdStyle}>Cantidad</th>
+            <th style={thTdStyle}>Subtotal</th>
+            <th style={thTdStyle}>Acción</th>
           </tr>
         </thead>
         <tbody>
-          {carrito.map(item => (
+          {carrito.map((item) => (
             <tr key={item.id}>
-              <td>{item.nombre}</td>
-              <td>${item.precio.toLocaleString()}</td>
-              <td>{item.cantidad}</td>
-              <td>${(item.precio * item.cantidad).toLocaleString()}</td>
-              <td>
+              <td style={thTdStyle}>{item.nombre}</td>
+              <td style={thTdStyle}>${item.precio.toLocaleString()}</td>
+              <td style={thTdStyle}>{item.cantidad}</td>
+              <td style={thTdStyle}>
+                ${(item.precio * item.cantidad).toLocaleString()}
+              </td>
+              <td style={thTdStyle}>
                 <button
-                  className="btn btn-danger btn-sm"
+                  style={deleteButton}
+                  onMouseOver={(e) => Object.assign(e.currentTarget.style, deleteHover)}
+                  onMouseOut={(e) => Object.assign(e.currentTarget.style, deleteButton)}
                   onClick={() => eliminarDelCarrito(item.id)}
                 >
                   Eliminar
@@ -53,14 +116,26 @@ const PaginaCarrito = () => {
         </tbody>
       </table>
 
-      <h4>Total: ${total.toLocaleString()}</h4>
+      <h3 style={{ marginTop: "20px", textAlign: "right" }}>
+        Total: ${total.toLocaleString()}
+      </h3>
 
-      <div className="mt-3 d-flex gap-2">
-        <button className="btn btn-warning" onClick={vaciarCarrito}>
+      <div style={{ marginTop: "20px", display: "flex", gap: "10px", justifyContent: "flex-end" }}>
+        <button
+          style={actionButton}
+          onMouseOver={(e) => Object.assign(e.currentTarget.style, actionHover)}
+          onMouseOut={(e) => Object.assign(e.currentTarget.style, actionButton)}
+          onClick={vaciarCarrito}
+        >
           Vaciar carrito
         </button>
-        <button className="btn btn-success" onClick={irAlCheckout}>
-          Ir a Checkout
+        <button
+          style={actionButton}
+          onMouseOver={(e) => Object.assign(e.currentTarget.style, actionHover)}
+          onMouseOut={(e) => Object.assign(e.currentTarget.style, actionButton)}
+          onClick={irAPagar}
+        >
+          Ir a pagar
         </button>
       </div>
     </div>
