@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../contextos/ContextoAuth";
-import { useCarrito } from "../contextos/ContextoCarrito"; // Nuevo hook del carrito
-import { FaShoppingCart } from "react-icons/fa"; // Icono del carrito
+import { useCarrito } from "../contextos/ContextoCarrito"; 
+import { FaShoppingCart, FaSearch } from "react-icons/fa";
 
-const BarraNavegacion = () => {
+const BarraNavegacion = ({ onBuscar }) => {
   const { usuario, logout } = useAuth();
-  const { carrito } = useCarrito(); // Carrito del contexto
+  const { carrito } = useCarrito(); 
   const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+
+  const manejarCambio = (e) => {
+    if(onBuscar) onBuscar(e.target.value);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -46,8 +50,20 @@ const BarraNavegacion = () => {
             </li>
           </ul>
 
+          <form className="d-flex me-3" role="search" onSubmit={e => e.preventDefault()}>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Buscar..."
+              aria-label="Buscar"
+              onChange={manejarCambio}
+            />
+            <button className="btn btn-outline-light" type="button">
+              <FaSearch />
+            </button>
+          </form>
+
           <div className="d-flex align-items-center">
-            {/* Botón de Carrito */}
             <Link to="/carrito" className="btn btn-outline-light position-relative me-3">
               <FaShoppingCart />
               {cantidadTotal > 0 && (
@@ -57,7 +73,6 @@ const BarraNavegacion = () => {
               )}
             </Link>
 
-            {/* Usuario autenticado */}
             {usuario ? (
               <>
                 <span className="navbar-text text-white me-2">{usuario.nombre}</span>

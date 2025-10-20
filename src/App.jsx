@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// 1. MODIFICADO: Ya no se importa "BrowserRouter as Router"
+import { Routes, Route } from "react-router-dom";
 import { ProveedorAuth } from "./contextos/ContextoAuth";
 import { ProveedorProductos } from "./contextos/ContextoProductos";
 import { ProveedorCarrito } from "./contextos/ContextoCarrito"; 
@@ -10,11 +11,13 @@ import PaginaLogin from "./paginas/PaginaLogin";
 import PaginaRegistro from "./paginas/PaginaRegistro";
 import PaginaProductos from "./paginas/PaginaProductos";
 import DetalleProducto from "./paginas/DetalleProducto";
-import PaginaCarrito from "./paginas/PaginaCarrito";     
+import PaginaCarrito from "./paginas/PaginaCarrito";       
 import PaginaCheckout from "./paginas/PaginaCheckout";     
 import PaginaConfirmacion from "./paginas/PaginaConfirmacion"; 
 
 import "bootstrap/dist/css/bootstrap.min.css";
+// 2. AÑADIDO: Importación del JS de Bootstrap
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './App.css';
 
 function App() {
@@ -22,25 +25,24 @@ function App() {
     <ProveedorAuth>
       <ProveedorProductos>
         <ProveedorCarrito> 
-          <Router>
-            <div className="d-flex flex-column min-vh-100">
-              <BarraNavegacion />
-              <div className="container mt-5 pt-4">
-                <Routes>
-                  <Route path="/" element={<PaginaProductos />} />
-                  <Route path="/login" element={<PaginaLogin />} />
-                  <Route path="/registro" element={<PaginaRegistro />} />
-                  <Route path="/categoria/:categoria" element={<PaginaProductos />} />
-                  <Route path="/producto/:id" element={<DetalleProducto />} />
-                  <Route path="/carrito" element={<PaginaCarrito />} />          
-    
-                  <Route path="/checkout" element={<PaginaCheckout />} />        
-                  <Route path="/confirmacion" element={<PaginaConfirmacion />} />
-                </Routes>
-              </div>
-              <PiePagina />
+          
+          <div className="d-flex flex-column min-vh-100">
+            <BarraNavegacion />
+            <div className="container mt-5 pt-4">
+              <Routes>
+                <Route path="/" element={<PaginaProductos />} />
+                <Route path="/login" element={<PaginaLogin />} />
+                <Route path="/registro" element={<PaginaRegistro />} />
+                <Route path="/categoria/:categoria" element={<PaginaProductos />} />
+                <Route path="/producto/:id" element={<DetalleProducto />} />
+                <Route path="/carrito" element={<PaginaCarrito />} />          
+                <Route path="/checkout" element={<PaginaCheckout />} />        
+                <Route path="/confirmacion" element={<PaginaConfirmacion />} />
+              </Routes>
             </div>
-          </Router>
+            <PiePagina />
+          </div>
+
         </ProveedorCarrito>
       </ProveedorProductos>
     </ProveedorAuth>
