@@ -5,9 +5,10 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  base: '/Proyecto_Full_Stack_2/', 
   test: {
     environment: 'jsdom', // Simula el DOM en los tests
     globals: true,
     setupFiles: './src/setupTests.js'
-  }
+  }
 })
