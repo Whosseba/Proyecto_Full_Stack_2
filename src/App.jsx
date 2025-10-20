@@ -9,7 +9,6 @@ import PaginaLogin from "./paginas/PaginaLogin";
 import PaginaRegistro from "./paginas/PaginaRegistro";
 import PaginaProductos from "./paginas/PaginaProductos";
 import DetalleProducto from "./paginas/DetalleProducto";
-import PaginaCarrito from "./paginas/PaginaCarrito";
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,7 +29,6 @@ function App() {
               <Route path="/registro" element={<PaginaRegistro />} />
               <Route path="/categoria/:categoria" element={<PaginaProductos />} />
               <Route path="/producto/:id" element={<DetalleProducto />} />
-              <Route path="/carrito" element={<PaginaCarrito />} />
             </Routes>
           </div>
           <PiePagina />
