@@ -13,7 +13,7 @@ const BarraNavegacion = ({ onBuscar }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top barra-navegacion">
       <div className="container">
         <Link className="navbar-brand" to="/">TechStore</Link>
         <button 
