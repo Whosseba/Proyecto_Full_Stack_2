@@ -71,7 +71,7 @@ const PaginaProductos = () => {
 
           {productosEnOferta.length > 0 && (
             <section className="seccion-productos mb-5">
-              <h2 className="text-center titulo-ofertas mb-4">¡Productos en oferta!</h2>
+              <h2 className="text-center titulo-ofertas mb-4">Productos Destacados</h2>
               <div className="row">
                 <AnimatePresence>
                   {productosEnOferta
