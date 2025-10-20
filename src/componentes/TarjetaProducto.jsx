@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCarrito } from "../contextos/ContextoCarrito";
 
 const TarjetaProducto = ({ producto }) => {
+  const { agregarAlCarrito } = useCarrito();
+
   const { 
     id, 
     nombre, 
@@ -11,7 +14,6 @@ const TarjetaProducto = ({ producto }) => {
     imagen 
   } = producto;
   
-  //cálculo del porcentaje
   let porcentajeDescuento = null;
   if (enOferta && precioOferta < precio) {
     const descuento = precio - precioOferta;
@@ -20,44 +22,46 @@ const TarjetaProducto = ({ producto }) => {
 
   return (
     <div className="card h-100 shadow-sm">
-      
       <img
         src={imagen}
         alt={nombre}
         className="card-img-top"
-        style={{ objectFit: "cover", height: "200px" }} 
+        style={{ objectFit: "cover", height: "200px" }}
       />
       
       <div className="card-body d-flex flex-column">
         <h5 className="card-title">{nombre}</h5>
-        
-        {/* precio OFERTA y. NORMAL */}
         <p className="card-text mt-auto">
           {enOferta ? (
-            // ESTADO DE OFERTA
             <>
-              <span className="precio-original">${precio}</span>
-              <strong className="precio-oferta">${precioOferta}</strong>
-              
+              <span className="text-muted text-decoration-line-through">
+                ${precio}
+              </span>{" "}
+              <strong className="text-danger">${precioOferta}</strong>{" "}
               {porcentajeDescuento !== null && (
-                <span className="badge-oferta">
+                <span className="badge bg-success">
                   {porcentajeDescuento}% OFF
                 </span>
               )}
             </>
           ) : (
-            // ESTADO NORMAL
-            <strong className="precio">${precio}</strong>
+            <strong>${precio}</strong>
           )}
         </p>
-        
-        <Link 
-            to={`/producto/${id}`} 
-            className="text-light btn bg-dark btn-outline-primary mt-3" 
+
+        <Link
+          to={`/producto/${id}`}
+          className="btn btn-dark mt-2"
         >
-            Ver más
+          Ver más
         </Link>
-        <button className="button mt-3">añadir al carrito</button>{/*agregar onclick */}
+
+        <button
+          className="btn btn-primary mt-2"
+          onClick={() => agregarAlCarrito(producto)}
+        >
+          Añadir al carrito
+        </button>
       </div>
     </div>
   );
