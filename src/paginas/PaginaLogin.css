@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0b0c10;
+  font-family: 'Orbitron', sans-serif;
+  background-image: radial-gradient(circle at top left, #1f2833, #0b0c10);
+}
+
+.login-card {
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 35px 45px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px #00ffff, 0 0 50px #0ff;
+  width: 360px;
+  color: #00ffff;
+  text-align: center;
+  border: 1px solid #00ffff;
+}
+
+.login-card h2 {
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px #00ffff;
+  text-transform: uppercase;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #00ffff;
+  background-color: #1b1b1b;
+  color: #00ffff;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.login-input:focus {
+  box-shadow: 0 0 10px #0ff, 0 0 20px #00ffff;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #0ff;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #0ff, 0 0 20px #00ffff;
+}
+
+.login-button:hover {
+  background-color: #00ffff;
+}
+
+.error-message {
+  color: #ff3860;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ff3860;
+}
+
+.login-footer {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.login-footer a {
+  color: #00ffff;
+  text-decoration: underline;
+}

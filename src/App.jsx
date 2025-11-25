@@ -1,0 +1,54 @@
+import { Routes, Route } from "react-router-dom";
+import { ProveedorAuth } from "./contextos/ContextoAuth";
+import { ProveedorProductos } from "./contextos/ContextoProductos";
+import { ProveedorCarrito } from "./contextos/ContextoCarrito";
+
+import BarraNavegacion from "./componentes/BarraNavegacion";
+import PiePagina from "./componentes/PiePagina";
+
+import PaginaLogin from "./paginas/PaginaLogin";
+import PaginaRegistro from "./paginas/PaginaRegistro";
+import PaginaProductos from "./paginas/PaginaProductos";
+import DetalleProducto from "./paginas/DetalleProducto";
+import PaginaCarrito from "./paginas/PaginaCarrito";
+import PaginaCheckout from "./paginas/PaginaCheckout";
+import PaginaConfirmacion from "./paginas/PaginaConfirmacion";
+import PaginaAdmin from "./paginas/admin/PaginaAdmin";
+import PaginaSobreNosotros from "./paginas/PaginaSobreNosotros";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import './App.css';
+
+function App() {
+  return (
+    <ProveedorAuth>
+      <ProveedorProductos>
+        <ProveedorCarrito>
+          
+          <div className="d-flex flex-column min-vh-100">
+            <BarraNavegacion />
+            <div className="container mt-5 pt-4">
+              <Routes>
+                <Route path="/" element={<PaginaProductos />} />
+                <Route path="/login" element={<PaginaLogin />} />
+                <Route path="/registro" element={<PaginaRegistro />} />
+                <Route path="/productos/:categoria" element={<PaginaProductos />} />
+                <Route path="/producto/:id" element={<DetalleProducto />} />
+                <Route path="/carrito" element={<PaginaCarrito />} />
+                <Route path="/checkout" element={<PaginaCheckout />} />
+                <Route path="/confirmacion" element={<PaginaConfirmacion />} />
+                <Route path="/admin" element={<PaginaAdmin />} />
+                <Route path="/sobre-nosotros" element={<PaginaSobreNosotros />} />
+              </Routes>
+            </div>
+            <PiePagina />
+          </div>
+
+        </ProveedorCarrito>
+      </ProveedorProductos>
+    </ProveedorAuth>
+  );
+}
+
+export default App;
