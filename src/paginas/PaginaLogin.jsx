@@ -3,28 +3,29 @@ import { useAuth } from "../contextos/ContextoAuth";
 import { useNavigate } from "react-router-dom";
 
 const PaginaLogin = () => {
-  const { login } = useAuth();
+  const { login } = useAuth(); // Esta función ahora conecta con Spring Boot
   const navigate = useNavigate();
-  const [nombre, setNombre] = useState("");
+
+  // Cambiamos "nombre" por "email" y agregamos "password"
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [mensajeError, setMensajeError] = useState("");
 
-  const usuariosRegistrados = [
-    { nombre: "admin" },
-    { nombre: "seba" },
-  ];
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const encontrado = usuariosRegistrados.find(u => u.nombre === nombre);
+    setMensajeError(""); // Limpiar errores previos
 
-    if (encontrado) {
-      login(encontrado);
-      navigate("/"); 
+    // Llamamos a la función del Contexto (que llama al Backend)
+    const exito = await login(email, password);
+
+    if (exito) {
+      navigate("/"); // Si el login es correcto, vamos al inicio
     } else {
-      setMensajeError("No existe ese usuario, vaya a registrarse");
+      setMensajeError("Credenciales incorrectas. Verifica tu email y contraseña.");
     }
   };
 
+  // --- TUS ESTILOS ORIGINALES (Intactos) ---
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -91,18 +92,34 @@ const PaginaLogin = () => {
     <div style={containerStyle}>
       <div style={cardStyle}>
         <h2 style={{ marginBottom: "25px", textShadow: "0 0 10px #00ffff" }}>Iniciar Sesión</h2>
+        
         {mensajeError && <p style={errorStyle}>{mensajeError}</p>}
+        
         <form onSubmit={handleLogin}>
+          {/* CAMPO EMAIL */}
           <input
-            type="text"
-            placeholder="Nombre de usuario"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            type="email"
+            placeholder="Correo electrónico"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
             style={inputStyle}
             onFocus={(e) => e.currentTarget.style.boxShadow = "0 0 10px #0ff, 0 0 20px #00ffff"}
             onBlur={(e) => e.currentTarget.style.boxShadow = "none"}
           />
+          
+          {/* CAMPO PASSWORD (NUEVO) */}
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={inputStyle}
+            onFocus={(e) => e.currentTarget.style.boxShadow = "0 0 10px #0ff, 0 0 20px #00ffff"}
+            onBlur={(e) => e.currentTarget.style.boxShadow = "none"}
+          />
+
           <button
             type="submit"
             style={buttonStyle}
@@ -112,6 +129,7 @@ const PaginaLogin = () => {
             Entrar
           </button>
         </form>
+        
         <p style={footerStyle}>
           ¿No tienes cuenta? <a href="/registro" style={{ color: "#00ffff", textDecoration: "underline" }}>Regístrate</a>
         </p>

@@ -3,7 +3,7 @@ import { useAuth } from "../contextos/ContextoAuth";
 import { useNavigate } from "react-router-dom";
 
 const PaginaRegistro = () => {
-  const { login } = useAuth();
+  const { login } = useAuth(); // Usaremos esto para auto-login después de registrar
   const navigate = useNavigate();
 
   const [rut, setRut] = useState("");
@@ -31,18 +31,47 @@ const PaginaRegistro = () => {
     return dvCalculado === dv;
   };
 
-  const handleRegistro = (e) => {
+  const handleRegistro = async (e) => {
     e.preventDefault();
+    
+    // 1. Validar RUT (Lógica Frontend)
     if (!validarRut(rut)) {
       setErrorRut("El RUT ingresado no es válido");
       return;
     }
     setErrorRut("");
-    const nuevoUsuario = { rut, nombreCompleto, email, contrasena, ubicacion };
-    login(nuevoUsuario);
-    navigate("/");
+
+    try {
+        // 2. CONEXIÓN AL BACKEND: Crear usuario
+        const response = await fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nombre: nombreCompleto,
+                email: email,
+                password: contrasena,
+                role: "USER" // Rol por defecto
+                // rut y ubicacion se envían pero el backend actual solo guarda lo que tiene en su modelo
+            })
+        });
+
+        if (response.ok) {
+            // 3. Si se registró bien, hacemos Login automático
+            const exitoLogin = await login(email, contrasena);
+            if (exitoLogin) {
+                alert("¡Registro exitoso!");
+                navigate("/"); // Vamos al home
+            }
+        } else {
+            setErrorRut("Error al registrar. Puede que el correo ya exista.");
+        }
+    } catch (error) {
+        console.error(error);
+        setErrorRut("Error de conexión con el servidor.");
+    }
   };
 
+  // --- ESTILOS ORIGINALES (INTACTOS) ---
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
