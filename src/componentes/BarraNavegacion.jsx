@@ -10,9 +10,9 @@ const BarraNavegacion = () => {
   const totalArticulos = carrito.reduce((total, item) => total + item.cantidad, 0);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="barra-navegacion navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">MiTienda</Link>
+        <Link className="navbar-brand" to="/">TechStore</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>

@@ -3,16 +3,21 @@ import { useAuth } from "../contextos/ContextoAuth";
 import { useNavigate } from "react-router-dom";
 
 const PaginaRegistro = () => {
-  const { login } = useAuth();
+  const { login } = useAuth(); // Usaremos esto para auto-login después de registrar
   const navigate = useNavigate();
 
+  // Estados del formulario
   const [rut, setRut] = useState("");
   const [nombreCompleto, setNombreCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [ubicacion, setUbicacion] = useState("");
+  
+  // Estados de error
   const [errorRut, setErrorRut] = useState("");
+  const [errorRegistro, setErrorRegistro] = useState("");
 
+  // Función para validar RUT chileno
   const validarRut = (rutCompleto) => {
     rutCompleto = rutCompleto.replace(/\./g, "").replace(/-/g, "").toUpperCase();
     if (!/^[0-9]+[0-9K]$/.test(rutCompleto)) return false;
@@ -31,18 +36,54 @@ const PaginaRegistro = () => {
     return dvCalculado === dv;
   };
 
-  const handleRegistro = (e) => {
+  const handleRegistro = async (e) => {
     e.preventDefault();
+    setErrorRut("");
+    setErrorRegistro("");
+    
+    // 1. Validar RUT (Lógica Frontend)
     if (!validarRut(rut)) {
       setErrorRut("El RUT ingresado no es válido");
       return;
     }
-    setErrorRut("");
-    const nuevoUsuario = { rut, nombreCompleto, email, contrasena, ubicacion };
-    login(nuevoUsuario);
-    navigate("/");
+
+    try {
+        // 2. CONEXIÓN AL BACKEND: Crear usuario
+        // Nota: Aunque pedimos RUT y Ubicación, el backend actual solo guarda nombre, email, pass y rol.
+        const response = await fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nombre: nombreCompleto,
+                email: email,
+                password: contrasena,
+                role: "USER" // Todo registro nuevo es USER por defecto
+            })
+        });
+
+        if (response.ok) {
+            // 3. Si se registró bien, hacemos Login automático
+            // Aquí usamos la función login actualizada que espera (email, password)
+            const exitoLogin = await login(email, contrasena);
+            
+            if (exitoLogin) {
+                alert("¡Registro exitoso! Bienvenido.");
+                navigate("/"); // Vamos al home
+            } else {
+                // Si falla el login automático, mandamos al login manual
+                alert("Registro exitoso. Por favor inicia sesión.");
+                navigate("/login");
+            }
+        } else {
+            setErrorRegistro("Error al registrar. Es posible que el correo ya esté en uso.");
+        }
+    } catch (error) {
+        console.error(error);
+        setErrorRegistro("Error de conexión con el servidor.");
+    }
   };
 
+  // --- ESTILOS ---
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -76,12 +117,6 @@ const PaginaRegistro = () => {
     transition: "0.3s",
   };
 
-  const inputFocusStyle = {
-    borderColor: "#0ff",
-    boxShadow: "0 0 10px #0ff",
-    background: "rgba(0,255,255,0.1)",
-  };
-
   const buttonStyle = {
     width: "100%",
     padding: "12px",
@@ -96,15 +131,11 @@ const PaginaRegistro = () => {
     marginTop: "10px",
   };
 
-  const buttonHoverStyle = {
-    backgroundColor: "#0ff",
-    color: "#000",
-    boxShadow: "0 0 15px #0ff",
-  };
-
   const errorStyle = {
     color: "#ff4d4d",
     marginBottom: "10px",
+    fontWeight: "bold",
+    fontSize: "14px"
   };
 
   const footerStyle = {
@@ -116,7 +147,11 @@ const PaginaRegistro = () => {
     <div style={containerStyle}>
       <div style={cardStyle}>
         <h2 style={{ marginBottom: "20px" }}>Registro de Usuario</h2>
+        
+        {/* Mensajes de Error */}
         {errorRut && <p style={errorStyle}>{errorRut}</p>}
+        {errorRegistro && <p style={errorStyle}>{errorRegistro}</p>}
+        
         <form onSubmit={handleRegistro}>
           <input
             type="text"
@@ -125,8 +160,6 @@ const PaginaRegistro = () => {
             onChange={(e) => setRut(e.target.value)}
             required
             style={inputStyle}
-            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
           />
           <input
             type="text"
@@ -135,8 +168,6 @@ const PaginaRegistro = () => {
             onChange={(e) => setNombreCompleto(e.target.value)}
             required
             style={inputStyle}
-            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
           />
           <input
             type="email"
@@ -145,8 +176,6 @@ const PaginaRegistro = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             style={inputStyle}
-            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
           />
           <input
             type="password"
@@ -155,8 +184,6 @@ const PaginaRegistro = () => {
             onChange={(e) => setContrasena(e.target.value)}
             required
             style={inputStyle}
-            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
           />
           <input
             type="text"
@@ -165,14 +192,18 @@ const PaginaRegistro = () => {
             onChange={(e) => setUbicacion(e.target.value)}
             required
             style={inputStyle}
-            onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-            onBlur={(e) => Object.assign(e.target.style, inputStyle)}
           />
           <button
             type="submit"
             style={buttonStyle}
-            onMouseOver={(e) => Object.assign(e.currentTarget.style, buttonHoverStyle)}
-            onMouseOut={(e) => Object.assign(e.currentTarget.style, buttonStyle)}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = "#00ffff";
+              e.currentTarget.style.color = "#000";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "#00f";
+              e.currentTarget.style.color = "#fff";
+            }}
           >
             Registrarse
           </button>

@@ -3,30 +3,28 @@ import { useProductos } from '../../contextos/ContextoProductos';
 
 const GestionProductos = () => {
   const { productos, agregarProducto, editarProducto, eliminarProducto } = useProductos();
+  
   const [productoActual, setProductoActual] = useState({ nombre: '', precio: '', descripcion: '', categoria: '', imagen: '' });
   const [editandoId, setEditandoId] = useState(null);
 
   const modoEdicion = useMemo(() => editandoId !== null, [editandoId]);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'imagen' && files[0]) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProductoActual({ ...productoActual, imagen: reader.result });
-      };
-      reader.readAsDataURL(files[0]);
-    } else {
-      setProductoActual({ ...productoActual, [name]: value });
-    }
+    const { name, value } = e.target;
+    setProductoActual({ ...productoActual, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // Importante: Convertimos precio a número para Java
+    const prodEnviar = { ...productoActual, precio: parseFloat(productoActual.precio) };
+
     if (modoEdicion) {
-      editarProducto({ ...productoActual, id: editandoId });
+      await editarProducto({ ...prodEnviar, id: editandoId });
+      alert("¡Producto actualizado!");
     } else {
-      agregarProducto(productoActual);
+      await agregarProducto(prodEnviar);
+      alert("¡Producto creado!");
     }
     handleLimpiar();
   };
@@ -44,7 +42,7 @@ const GestionProductos = () => {
   return (
     <div className="card text-white bg-dark">
       <div className="card-header">
-        <h3>{modoEdicion ? 'Editar Producto' : 'Agregar Producto'}</h3>
+        <h3>{modoEdicion ? '✏️ Editar Producto' : '➕ Agregar Producto'}</h3>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit}>
@@ -57,42 +55,50 @@ const GestionProductos = () => {
             <input name="precio" value={productoActual.precio} onChange={handleChange} type="number" className="form-control" required />
           </div>
           <div className="mb-3">
-            <label className="form-label">Descripción</label>
-            <textarea name="descripcion" value={productoActual.descripcion} onChange={handleChange} className="form-control" required />
-          </div>
-          <div className="mb-3">
             <label className="form-label">Categoría</label>
-            <input name="categoria" value={productoActual.categoria} onChange={handleChange} className="form-control" required />
+            <select name="categoria" value={productoActual.categoria} onChange={handleChange} className="form-control" required>
+                <option value="">Seleccione...</option>
+                <option value="laptops">Laptops</option>
+                <option value="mouses">Mouses</option>
+                <option value="teclados">Teclados</option>
+                <option value="monitores">Monitores</option>
+                <option value="gabinetes">Gabinetes</option>
+            </select>
           </div>
           <div className="mb-3">
-            <label className="form-label">Imagen</label>
-            <input name="imagen" onChange={handleChange} type="file" className="form-control" accept="image/*" />
+            <label className="form-label">URL Imagen</label>
+            {/* Usamos input text para URL*/}
+            <input name="imagen" value={productoActual.imagen} onChange={handleChange} type="text" className="form-control" placeholder="http://..." />
+            <small className="text-muted">Pega el link de una imagen de internet</small>
           </div>
+          <div className="mb-3">
+            <label className="form-label">Descripción</label>
+            <textarea name="descripcion" value={productoActual.descripcion} onChange={handleChange} className="form-control" />
+          </div>
+          
           <button type="submit" className="btn btn-primary me-2">{modoEdicion ? 'Actualizar' : 'Agregar'}</button>
           {modoEdicion && <button type="button" className="btn btn-secondary" onClick={handleLimpiar}>Cancelar</button>}
         </form>
       </div>
+      
       <div className="card-footer">
         <h4>Listado de Productos</h4>
         <div className="table-responsive">
           <table className="table table-dark table-striped">
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Categoría</th>
-                <th>Acciones</th>
+                <th>Img</th><th>Nombre</th><th>Precio</th><th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {productos.map(producto => (
-                <tr key={producto.id}>
-                  <td>{producto.nombre}</td>
-                  <td>${producto.precio}</td>
-                  <td>{producto.categoria}</td>
+              {productos.map(prod => (
+                <tr key={prod.id}>
+                  <td><img src={prod.imagen} width="40" alt="prod" onError={(e)=>e.target.style.display='none'}/></td>
+                  <td>{prod.nombre}</td>
+                  <td>${prod.precio}</td>
                   <td>
-                    <button className="btn btn-sm btn-warning me-2" onClick={() => handleEditar(producto)}>Editar</button>
-                    <button className="btn btn-sm btn-danger" onClick={() => eliminarProducto(producto.id)}>Eliminar</button>
+                    <button className="btn btn-sm btn-warning me-2" onClick={() => handleEditar(prod)}>Editar</button>
+                    <button className="btn btn-sm btn-danger" onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
                   </td>
                 </tr>
               ))}
