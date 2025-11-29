@@ -1,61 +1,148 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 export const ContextoAuth = createContext();
 
-export const ProviderAuth = ({ children }) => {
-  // Estado inicial leyendo del navegador 
+export const ProveedorAuth = ({ children }) => {
+  // Estados de autenticación
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [role, setRole] = useState(localStorage.getItem("role") || null);
-  
-  // Si hay token, el usuario está autenticado
-  const [autenticado, setAutenticado] = useState(!!localStorage.getItem("token"));
+  const [autenticado, setAutenticado] = useState(false); // Empieza en false
+  const [inicializando, setInicializando] = useState(true); // Controla la carga inicial de localStorage
   const [usuario, setUsuario] = useState(null);
-
-  // FUNCIÓN LOGIN REAL (Conectada a Spring Boot)
-  const login = async (email, password) => {
+  
+  // Usuarios y CRUD (Gestión Admin)
+  const [users, setUsers] = useState([]); 
+  const [cargandoUsuarios, setCargandoUsuarios] = useState(false);
+  
+  // --- FUNCIÓN CRUD DE CARGA DE USUARIOS (Para el useEffect) ---
+  const obtenerTodosLosUsuarios = async (currentToken) => {
+    if (!currentToken) return;
+    setCargandoUsuarios(true);
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) return false;
-
-      // El backend devuelve: { "token": "...", "role": "ADMIN" }
-      const data = await response.json(); 
-
-      setToken(data.token);
-      setRole(data.role);
-      setAutenticado(true);
-      setUsuario({ email, rol: data.role });
-
-      // Guardamos en LocalStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.role);
-      
-      return true;
-    } catch (error) {
-      console.error("Error en login:", error);
-      return false;
+        const response = await fetch("http://localhost:8080/api/admin/usuarios", {
+            headers: { 'Authorization': `Bearer ${currentToken}` }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            setUsers(data);
+        } else {
+            console.error("Error al listar usuarios:", response.status);
+        }
+    } catch (e) {
+        console.error("Error de conexión al listar usuarios:", e);
+    } finally {
+        setCargandoUsuarios(false);
     }
   };
 
-  // LOGOUT
+
+  // --- EFECTO CLAVE para LEER localStorage al iniciar ---
+  useEffect(() => {
+    const tokenGuardado = localStorage.getItem("token");
+    const roleGuardado = localStorage.getItem("role");
+    
+    if (tokenGuardado && roleGuardado) {
+        // 1. Si hay token, actualizamos el estado de inmediato
+        setToken(tokenGuardado);
+        setRole(roleGuardado);
+        setAutenticado(true);
+        // NOTA: Asumimos el email del usuario del token para la interfaz
+        setUsuario({ email: 'usuario@persistente.com', rol: roleGuardado }); 
+    }
+    
+    // 2. Una vez que terminamos de leer el navegador, indicamos que terminó la inicialización
+    setInicializando(false); 
+  }, []); 
+  
+  // 3. Efecto para cargar la lista de usuarios si somos admin (Depende de que el token esté cargado)
+  useEffect(() => {
+    if (autenticado && role === 'ADMIN' && token) {
+        // Llama a la función de carga de usuarios
+        obtenerTodosLosUsuarios(token);
+    } else {
+        setUsers([]); 
+    }
+  }, [autenticado, role, token]); 
+
+  // --- Funciones de Auth (Login, Logout, CRUD Usuarios) ---
+
+  const login = async (email, password) => {
+      try {
+        const response = await fetch("http://localhost:8080/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (!response.ok) return false;
+
+        const data = await response.json(); 
+        
+        // Guardar en estado
+        setToken(data.token);
+        setRole(data.role);
+        setAutenticado(true);
+        setUsuario({ email, rol: data.role });
+
+        // Persistencia
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
+        
+        return true;
+      } catch (error) {
+        console.error("Error en login:", error);
+        return false;
+      }
+  };
+
   const logout = () => {
     setToken(null);
     setRole(null);
     setAutenticado(false);
     setUsuario(null);
+    setUsers([]); // Limpiar lista de usuarios
     localStorage.removeItem("token");
     localStorage.removeItem("role");
   };
 
-  // --- Placeholders para evitar errores en GestionUsuarios ---
-  // (Dejamos esto vacío porque el backend actual no gestiona usuarios extra todavía)
-  const users = []; 
-  const eliminarUsuario = (id) => console.log("Falta endpoint DELETE en backend");
-  const editarUsuario = (u) => console.log("Falta endpoint PUT en backend");
+  // --- Funciones CRUD Usuarios (Ahora deben usar la lógica de fetch real que definimos antes) ---
+  
+  const eliminarUsuario = async (id) => {
+    if (!token) return false;
+    try {
+        const response = await fetch(`http://localhost:8080/api/admin/usuarios/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.status === 204) { 
+            // Actualización optimista de la lista
+            setUsers(users.filter(u => u.id !== id)); 
+            return true;
+        }
+    } catch (e) { console.error(e); }
+    return false;
+  };
+
+  const editarUsuario = async (usuarioActualizado) => {
+    if (!token) return false;
+    try {
+        const response = await fetch(`http://localhost:8080/api/admin/usuarios/${usuarioActualizado.id}`, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify(usuarioActualizado)
+        });
+        if (response.ok) {
+            const data = await response.json();
+            setUsers(users.map(u => u.id === data.id ? data : u)); 
+            return true;
+        }
+    } catch (e) { console.error(e); }
+    return false;
+  };
+
 
   return (
     <ContextoAuth.Provider value={{ 
@@ -63,11 +150,13 @@ export const ProviderAuth = ({ children }) => {
       users, 
       token, 
       role, 
-      autenticado, 
+      autenticado,
+      inicializando, // EXPORTAMOS EL ESTADO INICIALIZANDO
       login, 
       logout, 
       eliminarUsuario, 
-      editarUsuario 
+      editarUsuario,  
+      cargandoUsuarios
     }}>
       {children}
     </ContextoAuth.Provider>

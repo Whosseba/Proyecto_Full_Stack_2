@@ -1,118 +1,142 @@
-import { useState } from "react";
-import { useCarrito } from "../contextos/ContextoCarrito";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useCarrito } from '../contextos/ContextoCarrito';
+import { useAuth } from '../contextos/ContextoAuth';
+import { useNavigate } from 'react-router-dom';
 
 const PaginaCheckout = () => {
-  const { carrito, total, vaciarCarrito } = useCarrito();
-  const navigate = useNavigate();
+    const { carrito, total, vaciarCarrito, generarCodigo } = useCarrito();
+    // Asegúrate que useAuth y useCarrito se importan correctamente desde los hooks en los Contextos
+    const { autenticado, token, usuario } = useAuth(); 
+    const navigate = useNavigate();
+    const [mensaje, setMensaje] = useState("");
+    const [procesando, setProcesando] = useState(false);
 
-  // formulario
-  const [nombreTarjeta, setNombreTarjeta] = useState("");
-  const [numeroTarjeta, setNumeroTarjeta] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [codigoDescuento, setCodigoDescuento] = useState("");
-  const [descuentoAplicado, setDescuentoAplicado] = useState(false);
-  const [procesando, setProcesando] = useState(false);
-
-  const DESCUENTO = 0.2; 
-  const CODIGO_VALIDO = "TECHSTORE";
-
-  // Función para aplicar código de descuento
-  const aplicarDescuento = () => {
-    if (codigoDescuento.toUpperCase() === CODIGO_VALIDO) {
-      setDescuentoAplicado(true);
-      alert("¡Código válido! Se aplicó 20% de descuento.");
-    } else {
-      alert("Código inválido.");
+    // Si el carrito está vacío, lo detenemos aquí.
+    if (carrito.length === 0) {
+        return (
+            <div className="container text-center mt-5">
+                <h2 className="text-danger">Carrito Vacío</h2>
+                <p>No tienes productos para pagar.</p>
+            </div>
+        );
     }
-  };
 
-  // Helpers para permitir solo números
-  const soloDigitos = (str) => str.replace(/\D/g, "");
+    const handleProcesarPedido = async (e) => {
+        e.preventDefault();
+        setProcesando(true);
+        setMensaje("");
 
-  const handleNumeroTarjetaChange = (e) => {
-    setNumeroTarjeta(soloDigitos(e.target.value).slice(0, 16));
-  };
+        // Verificación de Autenticación (aunque RutaProtegida debería haberlo hecho)
+        if (!autenticado || !token || !usuario || !usuario.email) {
+            setMensaje("Error: Debes iniciar sesión para completar la compra.");
+            setProcesando(false);
+            return;
+        }
 
-  const handleCvvChange = (e) => {
-    setCvv(soloDigitos(e.target.value).slice(0, 4));
-  };
+        // 1. Mapeamos el carrito de React al formato que el Backend espera (ItemPedido)
+        const itemsPedido = carrito.map(item => ({
+            productoId: item.id,
+            nombreProducto: item.nombre,
+            cantidad: item.cantidad,
+            precioUnitario: item.precio // Asegúrate de que este es el precio final
+        }));
 
-  const permitirSoloNumeros = (e) => {
-    const teclasPermitidas = ["Backspace", "ArrowLeft", "ArrowRight", "Tab", "Delete"];
-    if (!teclasPermitidas.includes(e.key) && !/^[0-9]$/.test(e.key)) e.preventDefault();
-  };
+        const pedidoAEnviar = {
+            total: total,
+            items: itemsPedido
+            // El emailUsuario se saca automáticamente del Token en el Backend
+        };
 
-  // Simular pago
-  const simularPago = (e) => {
-    e.preventDefault();
-    if (!nombreTarjeta || numeroTarjeta.length < 13 || numeroTarjeta.length > 16 || cvv.length < 3) {
-      alert("Completa correctamente todos los campos.");
-      return;
-    }
-    setProcesando(true);
-    setTimeout(() => {
-      setProcesando(false);
-      vaciarCarrito();
-      alert(`¡Pago realizado!${descuentoAplicado ? " Se aplicó 20% de descuento." : ""}`);
-      navigate("/confirmacion"); // Página de confirmación
-    }, 2000);
-  };
+        try {
+            // 2. ENVIAMOS EL PEDIDO AL BACKEND
+            const response = await fetch("http://localhost:8080/api/pedidos", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Incluimos el TOKEN para la seguridad
+                },
+                body: JSON.stringify(pedidoAEnviar)
+            });
 
-  if (carrito.length === 0) return <p>El carrito está vacío. Añade productos antes de pagar.</p>;
+            if (response.ok) {
+                // 3. Éxito: Generamos código, limpiamos carrito y redirigimos
+                generarCodigo(); // Genera el código para la página de confirmación
+                vaciarCarrito();
+                navigate('/confirmacion');
+            } else if (response.status === 403) {
+                setMensaje("Error de Permisos (403). Vuelve a iniciar sesión.");
+            } else {
+                setMensaje("Error al procesar el pedido. Código de error: " + response.status);
+            }
+        } catch (error) {
+            console.error("Error de conexión:", error);
+            setMensaje("Error de conexión con el servidor. Verifica el backend.");
+        } finally {
+            setProcesando(false);
+        }
+    };
 
-  const totalFinal = descuentoAplicado ? total * (1 - DESCUENTO) : total;
+    return (
+        <div className="container mt-5">
+            <h2 className="mb-4">Finalizar Compra</h2>
+            
+            {mensaje && <div className="alert alert-danger">{mensaje}</div>}
 
-  return (
-    <div className="container mt-4">
-      <h2>💳 Checkout</h2>
-      <p>Total a pagar: <strong>${totalFinal.toLocaleString()}</strong></p>
+            <div className="row">
+                <div className="col-md-7">
+                    <div className="card p-4 mb-4">
+                        <h4 className="text-info">Resumen del Pedido</h4>
+                        <ul className="list-group list-group-flush">
+                            {carrito.map(item => (
+                                <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+                                    {item.nombre} (x{item.cantidad})
+                                    <span>${(item.precio * item.cantidad).toLocaleString()}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <h4 className="mt-3 text-end text-success">Total a Pagar: ${total.toLocaleString()}</h4>
+                    </div>
+                </div>
 
-      {!descuentoAplicado && (
-        <div className="mb-3">
-          <input
-            type="text"
-            placeholder="Ingresa código de descuento"
-            className="form-control mb-2"
-            value={codigoDescuento}
-            onChange={(e) => setCodigoDescuento(e.target.value)}
-          />
-          <button type="button" className="btn btn-info btn-sm" onClick={aplicarDescuento}>
-            Aplicar código
-          </button>
+                <div className="col-md-5">
+                    <form onSubmit={handleProcesarPedido} className="card p-4">
+                        <h4 className="text-info">Datos de Pago</h4>
+                        
+                        <div className="mb-3">
+                            <label className="form-label">Nombre en la tarjeta</label>
+                            <input type="text" className="form-control" required />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Número de Tarjeta</label>
+                            <input type="text" className="form-control" maxLength="16" required />
+                        </div>
+                        <div className="row">
+                            <div className="col-6 mb-3">
+                                <label className="form-label">Fecha Exp.</label>
+                                <input type="text" className="form-control" placeholder="MM/AA" maxLength="5" required />
+                            </div>
+                            <div className="col-6 mb-3">
+                                <label className="form-label">CVV</label>
+                                <input type="text" className="form-control" maxLength="3" required />
+                            </div>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            className="btn btn-success btn-lg mt-3" 
+                            disabled={procesando}
+                        >
+                            {procesando ? (
+                                <span className="spinner-border spinner-border-sm" role="status"></span>
+                            ) : (
+                                `Confirmar Pago (${total.toLocaleString()})`
+                            )}
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-      )}
-
-      <form onSubmit={simularPago}>
-        <input
-          type="text"
-          placeholder="Nombre en la tarjeta"
-          className="form-control mb-2"
-          value={nombreTarjeta}
-          onChange={(e) => setNombreTarjeta(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Número de tarjeta"
-          className="form-control mb-2"
-          value={numeroTarjeta}
-          onChange={handleNumeroTarjetaChange}
-          onKeyDown={permitirSoloNumeros}
-        />
-        <input
-          type="text"
-          placeholder="CVV"
-          className="form-control mb-2"
-          value={cvv}
-          onChange={handleCvvChange}
-          onKeyDown={permitirSoloNumeros}
-        />
-        <button className="btn btn-success" type="submit" disabled={procesando}>
-          {procesando ? "Procesando..." : "Pagar"}
-        </button>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default PaginaCheckout;

@@ -48,7 +48,7 @@ const GestionUsuarios = () => {
                 <tr>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Rol</th>
+                    <th>Role</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -57,19 +57,15 @@ const GestionUsuarios = () => {
                     <tr key={user.id || user.email}>
                     <td>{user.nombre || "Sin nombre"}</td>
                     <td>{user.email}</td>
-                    <td>{user.rol}</td>
+                    <td>{user.role}</td>
                     <td>
                         <button className="btn btn-sm btn-warning me-2" onClick={() => handleEditClick(user)}>Editar</button>
-                        {usuarioActual && usuarioActual.email !== user.email ? (
                         <button 
                             className="btn btn-sm btn-danger" 
                             onClick={() => handleEliminar(user.id)}
                         >
                             Eliminar
                         </button>
-                        ) : (
-                        <small className="text-muted">Actual</small>
-                        )}
                     </td>
                     </tr>
                 ))}

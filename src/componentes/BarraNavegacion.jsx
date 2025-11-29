@@ -35,7 +35,7 @@ const BarraNavegacion = () => {
             </li>
           </ul>
           <ul className="navbar-nav">
-            {usuario && usuario.rol === 'admin' && (
+            {usuario && usuario.rol === 'ADMIN' && (
               <li className="nav-item">
                 <Link className="nav-link" to="/admin">Administración</Link>
               </li>

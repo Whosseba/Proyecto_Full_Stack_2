@@ -16,7 +16,7 @@ const GestionProductos = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Importante: Convertimos precio a número para Java
+    // Convertimos precio a número para Java
     const prodEnviar = { ...productoActual, precio: parseFloat(productoActual.precio) };
 
     if (modoEdicion) {
@@ -42,7 +42,7 @@ const GestionProductos = () => {
   return (
     <div className="card text-white bg-dark">
       <div className="card-header">
-        <h3>{modoEdicion ? '✏️ Editar Producto' : '➕ Agregar Producto'}</h3>
+        <h3>{modoEdicion ? 'Editar Producto' : 'Agregar Producto'}</h3>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit}>
@@ -98,7 +98,14 @@ const GestionProductos = () => {
                   <td>${prod.precio}</td>
                   <td>
                     <button className="btn btn-sm btn-warning me-2" onClick={() => handleEditar(prod)}>Editar</button>
-                    <button className="btn btn-sm btn-danger" onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+                    <button className="btn btn-sm btn-danger" onClick={() => {
+                      if(window.confirm(`¿Seguro que deseas eliminar "${prod.nombre}"?`)){
+                        eliminarProducto(prod.id);
+                      }
+                    }}
+                    >
+                    Eliminar
+                    </button>
                   </td>
                 </tr>
               ))}

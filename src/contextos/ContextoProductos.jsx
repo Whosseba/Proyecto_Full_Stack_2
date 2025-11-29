@@ -5,12 +5,12 @@ export const ContextoProductos = createContext();
 
 export const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([]); 
-  const [cargando, setCargando] = useState(true); // Nuevo estado: ¿Está cargando?
-  const [error, setError] = useState(null);       // Nuevo estado: ¿Hubo error?
+  const [cargando, setCargando] = useState(true); 
+  const [error, setError] = useState(null);       
   
   const { token } = useAuth(); 
 
-  // 1. Cargar productos del Backend al iniciar
+  // Cargar productos del Backend al iniciar
   useEffect(() => {
     obtenerProductos();
   }, []);
@@ -31,7 +31,7 @@ export const ProveedorProductos = ({ children }) => {
     }
   };
 
-  // 2. Agregar (Requiere Token)
+  // Agregar (Requiere Token)
   const agregarProducto = async (nuevoProducto) => {
     try {
       const res = await fetch("http://localhost:8080/api/productos", {
@@ -49,7 +49,7 @@ export const ProveedorProductos = ({ children }) => {
     } catch (error) { console.error(error); }
   };
 
-  // 3. Editar (Requiere Token)
+  // Editar (Requiere Token)
   const editarProducto = async (prod) => {
     try {
       const res = await fetch(`http://localhost:8080/api/productos/${prod.id}`, {
@@ -67,7 +67,7 @@ export const ProveedorProductos = ({ children }) => {
     } catch (error) { console.error(error); }
   };
 
-  // 4. Eliminar (Requiere Token)
+  // Eliminar (Requiere Token)
   const eliminarProducto = async (id) => {
     try {
       const res = await fetch(`http://localhost:8080/api/productos/${id}`, {
@@ -83,8 +83,8 @@ export const ProveedorProductos = ({ children }) => {
   return (
     <ContextoProductos.Provider value={{ 
       productos, 
-      cargando, // Exportamos el estado de carga
-      error,    // Exportamos el error
+      cargando, 
+      error,    
       agregarProducto, 
       editarProducto, 
       eliminarProducto 

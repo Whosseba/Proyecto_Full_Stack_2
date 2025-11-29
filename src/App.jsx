@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { ProviderAuth, useAuth } from "./contextos/ContextoAuth"; 
+import { ProveedorAuth, useAuth } from "./contextos/ContextoAuth";
 import { ProveedorProductos } from "./contextos/ContextoProductos";
 import { ProveedorCarrito } from "./contextos/ContextoCarrito";
 
@@ -22,8 +22,14 @@ import './App.css';
 
 // --- GUARDIA: SOLO ADMIN ---
 const RutaAdmin = ({ children }) => {
-  const { autenticado, role } = useAuth();
-  // Si no está autenticado O el rol no es ADMIN, redirigir
+  // Asegúrate de que useAuth exporte 'inicializando'
+  const { autenticado, role, inicializando } = useAuth();
+  
+  if (inicializando) {
+      // Bloquea la decisión hasta que se haya leído localStorage
+      return <div className="text-center mt-5 pt-5 text-white"><div className="spinner-border text-info"></div></div>;
+  }
+  
   if (!autenticado || role !== "ADMIN") {
     return <Navigate to="/" replace />;
   }
@@ -32,14 +38,20 @@ const RutaAdmin = ({ children }) => {
 
 // --- GUARDIA: USUARIOS REGISTRADOS ---
 const RutaProtegida = ({ children }) => {
-  const { autenticado } = useAuth();
+  const { autenticado, inicializando } = useAuth();
+
+  if (inicializando) {
+      // Bloquea la decisión hasta que se haya leído localStorage
+      return <div className="text-center mt-5 pt-5 text-white"><div className="spinner-border text-info"></div></div>;
+  }
+  
   if (!autenticado) return <Navigate to="/login" replace />;
   return children;
 };
 
 function App() {
   return (
-    <ProviderAuth>
+    <ProveedorAuth>
       <ProveedorProductos>
         <ProveedorCarrito>
           <div className="d-flex flex-column min-vh-100">
@@ -67,7 +79,7 @@ function App() {
           </div>
         </ProveedorCarrito>
       </ProveedorProductos>
-    </ProviderAuth>
+    </ProveedorAuth>
   );
 }
 
