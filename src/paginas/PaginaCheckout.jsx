@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 const PaginaCheckout = () => {
     const { carrito, total, vaciarCarrito, generarCodigo } = useCarrito();
-    // Asegúrate que useAuth y useCarrito se importan correctamente desde los hooks en los Contextos
-    const { autenticado, token, usuario } = useAuth(); 
+    const { autenticado, token } = useAuth();
     const navigate = useNavigate();
+    
     const [mensaje, setMensaje] = useState("");
     const [procesando, setProcesando] = useState(false);
 
-    // Si el carrito está vacío, lo detenemos aquí.
+    // Si el carrito está vacío, no se puede pagar
     if (carrito.length === 0) {
         return (
             <div className="container text-center mt-5">
@@ -26,51 +26,52 @@ const PaginaCheckout = () => {
         setProcesando(true);
         setMensaje("");
 
-        // Verificación de Autenticación (aunque RutaProtegida debería haberlo hecho)
-        if (!autenticado || !token || !usuario || !usuario.email) {
+        // La RutaProtegida ya verifica esto, pero lo hacemos por seguridad de datos.
+        if (!autenticado || !token) {
             setMensaje("Error: Debes iniciar sesión para completar la compra.");
             setProcesando(false);
             return;
         }
 
-        // 1. Mapeamos el carrito de React al formato que el Backend espera (ItemPedido)
+        // 1. Mapear el carrito al formato de Pedido/ItemPedido que espera Spring Boot
         const itemsPedido = carrito.map(item => ({
             productoId: item.id,
             nombreProducto: item.nombre,
             cantidad: item.cantidad,
-            precioUnitario: item.precio // Asegúrate de que este es el precio final
+            precioUnitario: item.precio 
         }));
 
         const pedidoAEnviar = {
             total: total,
             items: itemsPedido
-            // El emailUsuario se saca automáticamente del Token en el Backend
         };
 
         try {
-            // 2. ENVIAMOS EL PEDIDO AL BACKEND
+            // 2. ENVIAR AL BACKEND (con el Token)
             const response = await fetch("http://localhost:8080/api/pedidos", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Incluimos el TOKEN para la seguridad
+                    'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify(pedidoAEnviar)
             });
 
             if (response.ok) {
-                // 3. Éxito: Generamos código, limpiamos carrito y redirigimos
-                generarCodigo(); // Genera el código para la página de confirmación
+                // 3. Éxito: Generar código, limpiar carrito y redirigir
+                generarCodigo(); 
                 vaciarCarrito();
                 navigate('/confirmacion');
-            } else if (response.status === 403) {
-                setMensaje("Error de Permisos (403). Vuelve a iniciar sesión.");
+            } else if (response.status === 500) {
+                 // El código 500 puede indicar la RuntimeException de stock insuficiente en Java
+                 setMensaje("Error: Stock insuficiente para uno o más productos. Por favor, verifica tu carrito.");
             } else {
-                setMensaje("Error al procesar el pedido. Código de error: " + response.status);
+                // Otros errores (ej. 400 Bad Request)
+                setMensaje(`Error al procesar el pedido. Código: ${response.status}.`);
             }
         } catch (error) {
             console.error("Error de conexión:", error);
-            setMensaje("Error de conexión con el servidor. Verifica el backend.");
+            setMensaje("Error de conexión con el servidor. Verifica que el Backend esté encendido.");
         } finally {
             setProcesando(false);
         }
@@ -81,8 +82,9 @@ const PaginaCheckout = () => {
             <h2 className="mb-4">Finalizar Compra</h2>
             
             {mensaje && <div className="alert alert-danger">{mensaje}</div>}
-
+            
             <div className="row">
+                {/* --- Resumen del Pedido --- */}
                 <div className="col-md-7">
                     <div className="card p-4 mb-4">
                         <h4 className="text-info">Resumen del Pedido</h4>
@@ -98,6 +100,7 @@ const PaginaCheckout = () => {
                     </div>
                 </div>
 
+                {/* --- Formulario de Pago --- */}
                 <div className="col-md-5">
                     <form onSubmit={handleProcesarPedido} className="card p-4">
                         <h4 className="text-info">Datos de Pago</h4>
