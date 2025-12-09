@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useProductos } from '../../contextos/ContextoProductos'; 
+import { useProductos } from '../../contextos/ContextoProductos';
 
 const GestionProductos = () => {
   const { productos, agregarProducto, editarProducto, eliminarProducto } = useProductos();
@@ -38,8 +38,8 @@ const GestionProductos = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (productoActual.precio <= 0 || productoActual.stock < 0) {
-      alert("El precio y el stock deben ser valores positivos.");
+    if (productoActual.precio < 0 || productoActual.stock < 0) {
+      alert("El precio y el stock no pueden ser valores negativos.");
       return;
     }
 
@@ -84,7 +84,7 @@ const GestionProductos = () => {
             <div className="col-md-6 mb-3">
                 <label className="form-label">Precio</label>
                 {/* step="0.01" para permitir decimales en el formulario */}
-                <input name="precio" value={productoActual.precio} onChange={handleChange} type="number" step="0.01" className="form-control" required />
+                <input name="precio" value={productoActual.precio} onChange={handleChange} type="number" step="0.01" min="0" className="form-control" required />
             </div>
             {/* CAMPO: STOCK */}
             <div className="col-md-6 mb-3">

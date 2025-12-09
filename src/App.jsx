@@ -49,6 +49,10 @@ const RutaProtegida = ({ children }) => {
   return children;
 };
 
+import SubBarraNavegacion from "./componentes/SubBarraNavegacion";
+
+// ... (resto de los imports)
+
 function App() {
   return (
     <ProveedorAuth>
@@ -56,7 +60,8 @@ function App() {
         <ProveedorCarrito>
           <div className="d-flex flex-column min-vh-100">
             <BarraNavegacion />
-            <div className="container-fluid" style={{ paddingTop: '86px' }}>
+            <SubBarraNavegacion />
+            <div className="container-fluid">
               <Routes>
                 {/* Rutas Públicas */}
                 <Route path="/" element={<PaginaProductos />} />

@@ -17,7 +17,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0; 
-  padding-top: 90px; /* barra de navegación fija */
+  padding-top: 135px; /* Ajuste para dos barras de navegación fijas */
 
   /* Colores y fuente */
   background-color: var(--color-fondo); 

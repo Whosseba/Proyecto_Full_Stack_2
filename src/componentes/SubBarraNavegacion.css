@@ -1,0 +1,41 @@
+.sub-barra-navegacion {
+  background-color: var(--color-fondo-claro);
+  width: 100%;
+  position: fixed;
+  top: 90px; /* Ajustado a la altura de la barra de navegación principal */
+  left: 0;
+  z-index: 1020; /* Menor que la navbar principal (1030), pero por encima del contenido */
+  border-bottom: 1px solid var(--color-secundario);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.sub-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Para que se ajuste en pantallas pequeñas */
+}
+
+.sub-nav-item {
+  padding: 10px 0;
+}
+
+.sub-nav-link {
+  color: var(--color-texto);
+  text-decoration: none;
+  padding: 10px 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 4px;
+}
+
+.sub-nav-link:hover {
+  background-color: var(--color-primario);
+  color: var(--color-texto);
+}

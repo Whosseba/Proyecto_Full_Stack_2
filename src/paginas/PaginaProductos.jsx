@@ -1,19 +1,17 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useProductos } from "../contextos/ContextoProductos";
 import TarjetaProducto from "../componentes/TarjetaProducto";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import './PaginaProductos.css'; // Importamos el CSS
+import imagenSamsung from '../imagenes/logos_empresa/imagen_de_descuentos_samsung.jpg';
+import imagenCelularTV from '../imagenes/logos_empresa/descuentos_celular_tv.jpg';
 
 const PaginaProductos = () => {
   const { categoria } = useParams();
   const { productos, cargando, error } = useProductos();
-  const [busqueda, setBusqueda] = useState("");
-
-  const productosFiltrados = (categoria
+  const productosFiltrados = categoria
     ? productos.filter(p => p.categoria?.toLowerCase() === categoria.toLowerCase())
-    : productos
-  ).filter(p => p.nombre?.toLowerCase().includes(busqueda.toLowerCase()));
+    : productos;
 
   const animacionContenedor = {
     hidden: { opacity: 0 },
@@ -71,6 +69,30 @@ const PaginaProductos = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      {/* Carrusel de Imágenes */}
+      {!categoria && (
+        <div className="container">
+          <div id="carouselExampleControls" className="carousel slide mb-5" data-bs-ride="carousel">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <img src={imagenSamsung} className="d-block w-100" alt="Descuentos Samsung" />
+              </div>
+              <div className="carousel-item">
+                <img src={imagenCelularTV} className="d-block w-100" alt="Descuentos en celulares y televisores" />
+              </div>
+            </div>
+            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Anterior</span>
+            </button>
+            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Siguiente</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Banner Superior */}
       <div className="banner-categoria text-white text-center py-5 mb-5">
         <motion.h1 
@@ -89,23 +111,6 @@ const PaginaProductos = () => {
         >
           Explora nuestro catálogo y encuentra lo que buscas.
         </motion.p>
-      </div>
-
-      {/* Barra de Búsqueda */}
-      <div className="container mb-5">
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control form-control-lg"
-                placeholder="Buscar por nombre..."
-                value={busqueda}
-                onChange={e => setBusqueda(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Listado de Productos */}
