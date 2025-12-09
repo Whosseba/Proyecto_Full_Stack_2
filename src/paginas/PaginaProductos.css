@@ -1,0 +1,31 @@
+/* Estilos de la página de productos utilizando variables de CSS para el tema */
+.pagina-productos {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  padding: 20px;
+  min-height: calc(100vh - 90px); /* Ajustado a la nueva altura de la navbar */
+  font-family: 'Consolas', 'Menlo', 'monospace';
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título principal con un brillo de neón usando el color primario del tema */
+.pagina-productos h1 {
+  color: var(--color-primario);
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--color-primario), 0 0 10px var(--color-primario), 0 0 20px var(--color-primario), 0 0 40px var(--color-primario);
+  margin-bottom: 40px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Diseño de la cuadrícula de productos */
+.lista-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}

@@ -1,16 +1,14 @@
 :root {
-  /* Fondo*/
-  --color-fondo: #121212; 
-  --color-fondo-claro: #242424;
-  /*Texto*/
-  --color-texto: #fff;
-  /* color primario */
-  --color-primario: #099EC8;
-  --color-primario-hover: #0099cc;
-  /*btn*/
-  --color-boton: #1a1a1a;
+  /* Paleta de colores Gamer (Púrpura/Azul oscuro) */
+  --color-fondo: #161425; 
+  --color-fondo-claro: #23203f;
+  --color-texto: #f0f0f0;
+  --color-primario: #7a5af8;
+  --color-primario-hover: #9a7bf9;
+  --color-secundario: #3d3b5e;
+  
+  --color-boton: var(--color-primario);
   --color-boton-hover: var(--color-primario-hover);
-  --color-boton-claro: #444;
 }
 
 /*BODY */
@@ -19,7 +17,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0; 
-  padding-top: 70px; /* barra de navegación fija */
+  padding-top: 90px; /* barra de navegación fija */
 
   /* Colores y fuente */
   background-color: var(--color-fondo); 

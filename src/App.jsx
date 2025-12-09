@@ -56,7 +56,7 @@ function App() {
         <ProveedorCarrito>
           <div className="d-flex flex-column min-vh-100">
             <BarraNavegacion />
-            <div className="container mt-5 pt-4">
+            <div className="container-fluid" style={{ paddingTop: '86px' }}>
               <Routes>
                 {/* Rutas Públicas */}
                 <Route path="/" element={<PaginaProductos />} />

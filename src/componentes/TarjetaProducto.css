@@ -1,0 +1,88 @@
+/* Estilo "gamer" para la tarjeta del producto usando variables de CSS */
+.tarjeta-producto {
+  background-color: var(--color-fondo-claro);
+  border: 1px solid var(--color-primario);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(122, 90, 248, 0.2); /* Sombra sutil con el color primario */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Efecto de elevación y resplandor al pasar el ratón */
+.tarjeta-producto:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px rgba(122, 90, 248, 0.5); /* Sombra más intensa */
+}
+
+/* Contenedor de la imagen */
+.tarjeta-producto-imagen-contenedor {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--color-primario);
+}
+
+.tarjeta-producto-imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tarjeta-producto-cuerpo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+/* Nombre del producto */
+.tarjeta-producto-nombre {
+  font-size: 1.25rem;
+  color: var(--color-primario);
+  margin-bottom: 10px;
+  min-height: 50px;
+}
+
+/* Precio del producto */
+.tarjeta-producto-precio {
+  font-size: 1.5rem;
+  color: var(--color-texto);
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Botones de acción */
+.tarjeta-producto-botones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+/* Estilo unificado para los botones con temática gamer */
+.btn-agregar, .btn-ver-mas {
+  background: transparent;
+  border: 2px solid var(--color-primario);
+  color: var(--color-primario);
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al pasar el ratón sobre los botones */
+.btn-agregar:hover, .btn-ver-mas:hover {
+  background-color: var(--color-primario-hover);
+  color: var(--color-fondo);
+  box-shadow: 0 0 10px var(--color-primario-hover);
+  border-color: var(--color-primario-hover);
+}
