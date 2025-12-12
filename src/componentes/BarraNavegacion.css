@@ -1,0 +1,88 @@
+.barra-navegacion {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.barra-navegacion .navbar-brand img {
+  height: 45px;
+}
+
+.barra-navegacion .form-control {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+}
+
+.barra-navegacion .form-control:focus {
+  border-color: #5a4fcf;
+  box-shadow: 0 0 0 3px rgba(90, 79, 207, 0.2);
+}
+
+.barra-navegacion .btn-outline-purple {
+  color: #5a4fcf;
+  border-color: #5a4fcf;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.barra-navegacion .btn-outline-purple:hover {
+  background-color: #5a4fcf;
+  color: #ffffff;
+}
+
+.barra-navegacion .nav-link {
+  color: #333;
+  font-weight: 600;
+  margin: 0 5px;
+  padding: 8px 16px;
+  border-radius: 999px; /* Pill shape */
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.barra-navegacion .nav-link:hover {
+  background-color: #f4f4f9;
+  color: #5a4fcf;
+}
+
+.barra-navegacion .nav-link.active {
+  background-color: #5a4fcf;
+  color: #ffffff;
+}
+
+.barra-navegacion .dropdown-menu {
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.barra-navegacion .dropdown-item {
+  color: #333;
+  font-weight: 500;
+}
+
+.barra-navegacion .dropdown-item:hover {
+  background-color: #f4f4f9;
+  color: #5a4fcf;
+}
+
+.barra-navegacion .badge {
+  background-color: #c73e1d;
+}
+
+.promo-banner {
+  padding: 12px;
+  background-color: #5a4fcf;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.promo-banner a {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 700;
+}

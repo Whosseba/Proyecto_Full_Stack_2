@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contextos/ContextoAuth';
 import { useCarrito } from '../contextos/ContextoCarrito';
 import { FaShoppingCart, FaUserCircle, FaSearch } from 'react-icons/fa';
 
 import logo from '../imagenes/logos_empresa/logo_techstore.png';
+import './BarraNavegacion.css';
 
 const BarraNavegacion = () => {
   const { usuario, logout } = useAuth();
@@ -16,31 +17,29 @@ const BarraNavegacion = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      // Por ahora, navegaremos a una página de resultados de búsqueda que necesitará ser creada.
       navigate(`/productos?search=${encodeURIComponent(query)}`);
     }
   };
 
   return (
-    <>
-      <nav className="barra-navegacion navbar navbar-expand-lg navbar-dark fixed-top" style={{ padding: '10px 0', backgroundColor: 'var(--color-fondo)' }}>
+    <div className="fixed-top">
+      <nav className="barra-navegacion navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            <img src={logo} alt="TechStore Logo" style={{ height: '50px' }} />
-          </Link>
-          
-          {/* Search Bar en el centro */}
-          <div className="flex-grow-1 px-3">
+          <NavLink className="navbar-brand" to="/">
+            <img src={logo} alt="TechStore Logo" />
+          </NavLink>
+
+          <div className="flex-grow-1 px-lg-5">
             <form className="d-flex" onSubmit={handleSearch}>
               <input
-                className="form-control form-control-lg me-2"
+                className="form-control me-2"
                 type="search"
                 placeholder="Buscar productos, marcas y más..."
                 aria-label="Buscar"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
-              <button className="btn btn-lg btn-outline-light" type="submit">
+              <button className="btn btn-outline-purple" type="submit">
                 <FaSearch />
               </button>
             </form>
@@ -51,17 +50,16 @@ const BarraNavegacion = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav" style={{ flexGrow: 0 }}>
-            {/* Íconos y links de la derecha */}
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav ms-auto align-items-center">
               {usuario && usuario.rol === 'ADMIN' && (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/admin">Administración</Link>
+                  <NavLink className="nav-link" to="/admin">Administración</NavLink>
                 </li>
               )}
               {usuario ? (
                 <li className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <FaUserCircle className="me-1" /> {usuario.nombre}
+                  <a className="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <FaUserCircle className="me-2" size="1.2em" /> {usuario.nombre}
                   </a>
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
                     <li><button className="dropdown-item" onClick={logout}>Cerrar Sesión</button></li>
@@ -69,29 +67,23 @@ const BarraNavegacion = () => {
                 </li>
               ) : (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">Iniciar Sesión</Link>
+                  <NavLink className="nav-link" to="/login">Iniciar Sesión</NavLink>
                 </li>
               )}
               <li className="nav-item">
-                <Link className="nav-link" to="/carrito">
-                  <FaShoppingCart />
-                  {totalArticulos > 0 && <span className="badge bg-danger ms-1">{totalArticulos}</span>}
-                </Link>
+                <NavLink className="nav-link" to="/carrito">
+                  <FaShoppingCart size="1.2em" />
+                  {totalArticulos > 0 && <span className="badge rounded-pill ms-1">{totalArticulos}</span>}
+                </NavLink>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      <div style={{ 
-        padding: '10px', 
-        backgroundColor: 'var(--color-primario)', 
-        color: 'var(--color-texto)', 
-        textAlign: 'center',
-        fontWeight: 'bold'
-      }}>
-        ¡Retira GRATIS tus compras en nuestra tienda! Además, aprovecha miles de productos con Despacho Gratis <a href="#" style={{ color: 'var(--color-texto)', textDecoration: 'underline' }}>AQUÍ</a>
+      <div className="promo-banner">
+        ¡Retira GRATIS tus compras en nuestra tienda! Además, aprovecha miles de productos con Despacho Gratis <a href="#">AQUÍ</a>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -27,11 +27,11 @@ export const ProveedorProductos = ({ children }) => {
       console.error("Error cargando productos:", error);
       setError("Error al cargar los productos. Revisa que el Backend esté encendido.");
     } finally {
-      setCargando(false); // Terminó de cargar (sea éxito o error)
+      setCargando(false); 
     }
   };
 
-  // Agregar (Requiere Token)
+  
   const agregarProducto = async (nuevoProducto) => {
     try {
       const res = await fetch("http://localhost:8080/api/productos", {
@@ -67,7 +67,7 @@ export const ProveedorProductos = ({ children }) => {
     } catch (error) { console.error(error); }
   };
 
-  // Eliminar (Requiere Token)
+
   const eliminarProducto = async (id) => {
     try {
       const res = await fetch(`http://localhost:8080/api/productos/${id}`, {

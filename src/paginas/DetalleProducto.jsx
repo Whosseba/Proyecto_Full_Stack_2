@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useProductos } from "../contextos/ContextoProductos";
 import { useCarrito } from "../contextos/ContextoCarrito";
 import { useState } from "react";
+import './DetalleProducto.css'; // Importar el nuevo CSS
 
 const DetalleProducto = () => {
   const { id } = useParams();
@@ -9,92 +10,74 @@ const DetalleProducto = () => {
   const { agregarAlCarrito } = useCarrito();
   const [agregado, setAgregado] = useState(false);
 
-  // Protección de Carga: Si aún no llegan los productos, mostramos cargando
+  // Pantalla de carga
   if (productos.length === 0) {
     return (
-      <div className="text-center mt-5 pt-5 text-white">
-        <div className="spinner-border text-info" role="status"></div>
-        <p>Cargando detalles del producto...</p>
+      <div className="text-center mt-5 pt-5">
+        <div className="spinner-border text-light" role="status"></div>
+        <p className="text-light">Cargando detalles del producto...</p>
       </div>
     );
   }
 
   const producto = productos.find(p => p.id === parseInt(id));
 
-  if (!producto)
+  // Producto no encontrado
+  if (!producto) {
     return (
-        <div className="text-center mt-5 text-white">
-            <h3>Producto no encontrado</h3>
-            <Link to="/" className="btn btn-primary mt-3">Volver al inicio</Link>
-        </div>
+      <div className="text-center mt-5 text-light">
+        <h3>Producto no encontrado</h3>
+        <Link to="/" className="btn btn-primary mt-3">Volver al inicio</Link>
+      </div>
     );
+  }
 
   const handleAgregar = () => {
     agregarAlCarrito(producto);
     setAgregado(true);
-    setTimeout(() => setAgregado(false), 1200);
+    setTimeout(() => setAgregado(false), 1500);
   };
 
   return (
-    <div
-      className="pagina-detalle-producto container mt-5 Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #0f0f0f, #1a1a1a, #000000)",
-        color: "#00f0ff",
-        padding: "40px 20px",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      }}
-    >
-      <h2
-        className="mb-4"
-        style={{
-          textAlign: "center",
-          fontWeight: "bold",
-          textShadow: "0 0 2px #0e373bff, 0 0 10px rgba(15, 81, 81, 1)",
-        }}
-      >
-        {producto.nombre}
-      </h2>
-      <div className="row">
-        <div className="col-md-6 mb-4">
-          <div
-            className="borde-rgb-gamer p-3"
-          >
-            <img
-              src={producto.imagen}
-              alt={producto.nombre}
-              className="img-fluid rounded"
-              onError={(e) => e.target.style.display = 'none'} // Oculta si la imagen falla
-            />
-          </div>
+    <div className="detalle-container">
+      <div className="detalle-header">
+        <h2>{producto.nombre}</h2>
+      </div>
+      <div className="detalle-main">
+        <div className="detalle-imagen-container">
+          <img
+            src={producto.imagen}
+            alt={producto.nombre}
+            className="detalle-imagen"
+            onError={(e) => e.target.style.display = 'none'}
+          />
         </div>
-        <div className="col-md-6">
-          <h3 className="fw-bold mb-3">Precio: ${producto.precio.toLocaleString()}</h3>
-          <p className="mb-3">{producto.descripcion}</p>
+        <div className="detalle-info">
+          <p className="detalle-descripcion">{producto.descripcion}</p>
           
-          {producto.especificaciones ? (
-             Array.isArray(producto.especificaciones) ? (
-                <>
-                  <h5>Especificaciones:</h5>
-                  <ul>
-                    {producto.especificaciones.map((esp, index) => (
-                      <li key={index}>{esp}</li>
-                    ))}
-                  </ul>
-                </>
-             ) : (
-                <p><strong>Detalles:</strong> {producto.especificaciones}</p>
-             )
-          ) : (
-             <p>Sin especificaciones adicionales.</p>
+          {producto.especificaciones && (
+            <div className="detalle-specs">
+              <h5>Especificaciones</h5>
+              <ul>
+                {Array.isArray(producto.especificaciones) ? (
+                  producto.especificaciones.map((esp, index) => <li key={index}>{esp}</li>)
+                ) : (
+                  <li>{producto.especificaciones}</li>
+                )}
+              </ul>
+            </div>
           )}
 
-          <button
-            onClick={handleAgregar}
-          >
-            {agregado ? "¡Agregado!" : "🛒 Agregar al carrito"}
-          </button>
+          <div className="detalle-acciones">
+            <h3 className="detalle-precio">${producto.precio.toLocaleString()}</h3>
+            <button
+              onClick={handleAgregar}
+              className={`btn-agregar-detalle ${agregado ? "btn-agregado" : ""}`}
+              disabled={agregado}
+            >
+              {agregado ? "¡Agregado al Carrito!" : "Agregar al Carrito"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

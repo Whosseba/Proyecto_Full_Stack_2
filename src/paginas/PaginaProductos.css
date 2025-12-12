@@ -1,45 +1,42 @@
-/* Estilos de la página de productos utilizando variables de CSS para el tema */
 .pagina-productos {
-  background-color: var(--color-fondo);
-  color: var(--color-texto);
-  padding: 20px;
-  min-height: calc(100vh - 90px); /* Ajustado a la nueva altura de la navbar */
-  font-family: 'Consolas', 'Menlo', 'monospace';
-  display: flex;
-  flex-direction: column;
+  background-color: #f4f4f9;
+  color: #333;
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px); /* Adjust based on navbar height */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Título principal con un brillo de neón usando el color primario del tema */
 .pagina-productos h1 {
-  color: var(--color-primario);
+  color: #333;
   text-align: center;
-  font-size: 3rem;
-  font-weight: bold;
-  text-shadow: 0 0 5px var(--color-primario), 0 0 10px var(--color-primario), 0 0 20px var(--color-primario), 0 0 40px var(--color-primario);
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: 40px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Diseño de la cuadrícula de productos */
 .lista-productos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
   max-width: 1400px;
   margin: 0 auto;
 }
+
+/* Carousel Styles */
 .carousel {
-  border-radius: 15px; /* Bordes redondeados */
-  overflow: hidden;    /* Asegura que las imágenes no se salgan de los bordes redondeados */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
 }
 
 .carousel-inner {
-  max-height: 400px; /* Altura máxima para el carrusel */
+  max-height: 450px; /* Adjust height as needed */
 }
 
 .carousel-item img {
-  object-fit: cover; /* Ajusta la imagen para cubrir el espacio sin deformarse */
+  object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 450px; /* Ensure consistent height */
 }

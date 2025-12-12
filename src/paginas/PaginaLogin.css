@@ -1,82 +1,84 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #0b0c10;
-  font-family: 'Orbitron', sans-serif;
-  background-image: radial-gradient(circle at top left, #1f2833, #0b0c10);
+  background-color: #f4f4f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .login-card {
-  backdrop-filter: blur(12px);
-  background: rgba(0, 0, 0, 0.7);
-  padding: 35px 45px;
-  border-radius: 15px;
-  box-shadow: 0 0 25px #00ffff, 0 0 50px #0ff;
-  width: 360px;
-  color: #00ffff;
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  color: #333;
   text-align: center;
-  border: 1px solid #00ffff;
+  border: 1px solid #e0e0e0;
 }
 
 .login-card h2 {
-  margin-bottom: 25px;
-  text-shadow: 0 0 10px #00ffff;
-  text-transform: uppercase;
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 600;
 }
 
 .login-input {
   width: 100%;
   padding: 12px;
   margin: 12px 0;
-  border-radius: 8px;
-  border: 1px solid #00ffff;
-  background-color: #1b1b1b;
-  color: #00ffff;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
   outline: none;
   font-size: 16px;
-  transition: all 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .login-input:focus {
-  box-shadow: 0 0 10px #0ff, 0 0 20px #00ffff;
+  border-color: #5a4fcf;
+  box-shadow: 0 0 0 3px rgba(90, 79, 207, 0.2);
 }
 
 .login-button {
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: none;
-  background-color: #0ff;
-  color: #000;
+  background-color: #5a4fcf;
+  color: #ffffff;
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px #0ff, 0 0 20px #00ffff;
+  transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
-  background-color: #00ffff;
+  background-color: #4a3fbf;
 }
 
 .error-message {
-  color: #ff3860;
-  margin-bottom: 10px;
-  font-weight: bold;
-  text-shadow: 0 0 5px #ff3860;
+  color: #c73e1d;
+  margin-bottom: 15px;
+  font-weight: 500;
 }
 
 .login-footer {
-  margin-top: 15px;
+  margin-top: 20px;
   font-size: 14px;
-  color: #ccc;
+  color: #666;
 }
 
 .login-footer a {
-  color: #00ffff;
+  color: #5a4fcf;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-footer a:hover {
   text-decoration: underline;
 }
