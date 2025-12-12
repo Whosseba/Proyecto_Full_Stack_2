@@ -15,10 +15,14 @@ import PaginaCheckout from "./paginas/PaginaCheckout";
 import PaginaConfirmacion from "./paginas/PaginaConfirmacion";
 import PaginaAdmin from "./paginas/admin/PaginaAdmin"; 
 import PaginaSobreNosotros from "./paginas/PaginaSobreNosotros";
+import Audifonos from "./paginas/Audifonos";
+import PaginaTerminosCondiciones from "./paginas/PaginaTerminosCondiciones";
+import PaginaPoliticaPrivacidad from "./paginas/PaginaPoliticaPrivacidad";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './App.css';
+import SubBarraNavegacion from "./componentes/SubBarraNavegacion";
 
 // --- GUARDIA: SOLO ADMIN ---
 const RutaAdmin = ({ children }) => {
@@ -49,10 +53,6 @@ const RutaProtegida = ({ children }) => {
   return children;
 };
 
-import SubBarraNavegacion from "./componentes/SubBarraNavegacion";
-
-// ... (resto de los imports)
-
 function App() {
   return (
     <ProveedorAuth>
@@ -61,7 +61,7 @@ function App() {
           <div className="d-flex flex-column min-vh-100">
             <BarraNavegacion />
             <SubBarraNavegacion />
-            <div className="container-fluid">
+            <div className="container-fluid main-content">
               <Routes>
                 {/* Rutas Públicas */}
                 <Route path="/" element={<PaginaProductos />} />
@@ -71,6 +71,8 @@ function App() {
                 <Route path="/producto/:id" element={<DetalleProducto />} />
                 <Route path="/carrito" element={<PaginaCarrito />} />
                 <Route path="/sobre-nosotros" element={<PaginaSobreNosotros />} />
+                <Route path="/terminos-y-condiciones" element={<PaginaTerminosCondiciones />} />
+                <Route path="/politica-de-privacidad" element={<PaginaPoliticaPrivacidad />} />
 
                 {/* Rutas Privadas (Cualquier usuario) */}
                 <Route path="/checkout" element={<RutaProtegida><PaginaCheckout /></RutaProtegida>} />

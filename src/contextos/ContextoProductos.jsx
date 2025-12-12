@@ -22,7 +22,36 @@ export const ProveedorProductos = ({ children }) => {
       const res = await fetch("http://localhost:8080/api/productos");
       if (!res.ok) throw new Error("No se pudo conectar con el servidor");
       const data = await res.json();
-      setProductos(data);
+      const mockAudifonos = [
+        {
+          id: 100,
+          nombre: "Audífonos Gamer Inalámbricos",
+          descripcion: "Sumérgete en el juego con estos audífonos inalámbricos de alta fidelidad.",
+          precio: 129990,
+          categoria: "audifonos",
+          imagen: "/src/imagenes/audifonos/audifonos_image.png",
+          especificaciones: ["Conexión inalámbrica de 2.4 GHz", "Micrófono con cancelación de ruido", "Batería de hasta 20 horas"]
+        },
+        {
+          id: 101,
+          nombre: "Audífonos de Estudio Profesional",
+          descripcion: "Calidad de sonido excepcional para producción musical y audiófilos.",
+          precio: 89990,
+          categoria: "audifonos",
+          imagen: "/src/imagenes/audifonos/audifonos_image.png",
+          especificaciones: ["Respuesta de frecuencia plana", "Diseño circumaural cerrado", "Cable desmontable"]
+        },
+        {
+          id: 102,
+          nombre: "Audífonos Bluetooth Deportivos",
+          descripcion: "Ligeros y resistentes al sudor, perfectos para tus entrenamientos.",
+          precio: 49990,
+          categoria: "audifonos",
+          imagen: "/src/imagenes/audifonos/audifonos_image.png",
+          especificaciones: ["Certificación IPX7", "Ganchos de oreja ajustables", "Estuche de carga incluido"]
+        }
+      ];
+      setProductos([...data, ...mockAudifonos]);
     } catch (error) {
       console.error("Error cargando productos:", error);
       setError("Error al cargar los productos. Revisa que el Backend esté encendido.");

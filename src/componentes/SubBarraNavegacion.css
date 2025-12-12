@@ -1,9 +1,6 @@
 .sub-barra-navegacion {
   background-color: #ffffff;
   width: 100%;
-  position: fixed;
-  top: 120px; /* Ajusta según la altura de tu barra de navegación principal */
-  left: 0;
   z-index: 1020;
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -38,4 +35,16 @@
 .sub-nav-link:hover {
   background-color: #5a4fcf;
   color: #ffffff;
+}
+
+.medios-pago-container {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espacio entre logos */
+}
+
+.logo-pago-icon {
+  font-size: 1.8rem; /* Tamaño del ícono */
+  color: #4a4a4a; /* Color gris oscuro para los logos */
+  transition: color 0.3s ease;
 }

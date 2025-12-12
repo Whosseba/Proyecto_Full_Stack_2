@@ -4,13 +4,15 @@ import TarjetaProducto from "../componentes/TarjetaProducto";
 import { motion } from "framer-motion";
 import './PaginaProductos.css'; // Importamos el CSS
 import imagenSamsung from '../imagenes/logos_empresa/imagen_de_descuentos_samsung.jpg';
-import imagenCelularTV from '../imagenes/logos_empresa/descuentos_celular_tv.jpg';
+import imagenDescuentos from '../imagenes/logos_empresa/descuentos_celular_tv.jpg';
 
 const PaginaProductos = () => {
   const { categoria } = useParams();
   const { productos, cargando, error } = useProductos();
+  const categoriaFormateada = categoria ? categoria.replace(/-/g, ' ') : null;
+
   const productosFiltrados = categoria
-    ? productos.filter(p => p.categoria?.toLowerCase() === categoria.toLowerCase())
+    ? productos.filter(p => p.categoria?.toLowerCase() === categoriaFormateada.toLowerCase())
     : productos;
 
   const animacionContenedor = {
@@ -63,7 +65,7 @@ const PaginaProductos = () => {
   }
 
   return (
-    <motion.div 
+    <motion.div
       className="pagina-productos"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -78,7 +80,7 @@ const PaginaProductos = () => {
                 <img src={imagenSamsung} className="d-block w-100" alt="Descuentos Samsung" />
               </div>
               <div className="carousel-item">
-                <img src={imagenCelularTV} className="d-block w-100" alt="Descuentos en celulares y televisores" />
+                <img src={imagenDescuentos} className="d-block w-100" alt="Descuentos General" />
               </div>
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -95,7 +97,7 @@ const PaginaProductos = () => {
 
       {/* Banner Superior */}
       <div className="banner-categoria text-white text-center py-5 mb-5">
-        <motion.h1 
+        <motion.h1
           className="text-capitalize display-4 fw-bold"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -103,7 +105,7 @@ const PaginaProductos = () => {
         >
           {nombreCategoria}
         </motion.h1>
-        <motion.p 
+        <motion.p
           className="lead"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -116,7 +118,7 @@ const PaginaProductos = () => {
       {/* Listado de Productos */}
       <div className="container">
         {productosFiltrados.length > 0 ? (
-          <motion.div 
+          <motion.div
             className="row g-4"
             variants={animacionContenedor}
             initial="hidden"

@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { 
+  FaFacebookF, 
+  FaTwitter, 
+  FaInstagram, 
+  FaCreditCard, 
+  FaUniversity, 
+  FaMoneyBillWave, 
+  FaLandmark 
+} from 'react-icons/fa';
+import { SiMercadopago } from 'react-icons/si';
 import './PiePagina.css';
 
 const PiePagina = () => (
@@ -18,6 +27,24 @@ const PiePagina = () => (
           <li><Link to="/politica-de-privacidad">Política de Privacidad</Link></li>
           <li><Link to="/terminos-y-condiciones">Términos y Condiciones</Link></li>
         </ul>
+      </div>
+      <div className="footer-section">
+        <h5>Horario de Atención</h5>
+        <p><strong>Tienda y Punto de Retiro:</strong></p>
+        <ul className="list-unstyled">
+          <li>Lunes a Jueves: 09:00 a 19:00</li>
+          <li>Viernes: 09:00 a 18:00</li>
+        </ul>
+      </div>
+      <div className="footer-section">
+        <h5>Medios de Pago</h5>
+        <div className="medios-pago-container">
+            <FaCreditCard title="Webpay" className="logo-pago-icon" />
+            <SiMercadopago title="Mercado Pago" className="logo-pago-icon" />
+            <FaLandmark title="Santander" className="logo-pago-icon" />
+            <FaUniversity title="Banco Estado" className="logo-pago-icon" />
+            <FaMoneyBillWave title="Transferencia" className="logo-pago-icon" />
+        </div>
       </div>
       <div className="footer-section">
         <h5>Síguenos</h5>

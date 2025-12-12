@@ -67,6 +67,18 @@
   color: #5a4fcf;
 }
 
+.medios-pago-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logo-pago-icon {
+  font-size: 2rem;
+  color: #f8f9fa;
+}
+
 .footer-bottom {
   text-align: center;
   margin-top: 40px;

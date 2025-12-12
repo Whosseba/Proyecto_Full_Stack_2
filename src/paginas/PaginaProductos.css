@@ -40,3 +40,16 @@
   width: 100%;
   height: 450px; /* Ensure consistent height */
 }
+.horario-atencion-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.horario-atencion-card .card-title {
+  color: #4f2f8e; /* O el color principal de tu marca */
+  font-weight: bold;
+}
