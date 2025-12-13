@@ -12,26 +12,26 @@ const PaginaCarrito = () => {
   const containerStyle = {
     minHeight: "100vh",
     padding: "40px 20px",
-    background: "linear-gradient(135deg, #0f0f0f, #1a1a1a, #000000)",
-    color: "#fff",
+    background: "linear-gradient(135deg, #3a0ca3, #480ca8, #560bad)",
+    color: "#ffffff",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   };
 
   const tableStyle = {
     width: "100%",
     borderCollapse: "collapse",
-    background: "rgba(20, 30, 50, 0.8)",
+    background: "rgba(255, 255, 255, 0.1)",
     backdropFilter: "blur(10px)",
     borderRadius: "12px",
     overflow: "hidden",
-    boxShadow: "0 0 20px rgba(0,123,255,0.5)",
+    boxShadow: "0 0 20px rgba(189, 147, 249, 0.5)",
   };
 
   const thTdStyle = {
     padding: "12px",
     textAlign: "center",
-    borderBottom: "1px solid rgba(0,255,255,0.2)",
-    color: "#00f0ff",
+    borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+    color: "#e0cffc",
   };
 
   const buttonStyle = {
@@ -45,32 +45,32 @@ const PaginaCarrito = () => {
 
   const deleteButton = {
     ...buttonStyle,
-    backgroundColor: "#ff4d4d",
-    color: "#fff",
+    backgroundColor: "#c71f37",
+    color: "#ffffff",
   };
 
   const deleteHover = {
-    backgroundColor: "#ff1a1a",
-    boxShadow: "0 0 10px #ff4d4d",
+    backgroundColor: "#a5182c",
+    boxShadow: "0 0 10px #c71f37",
   };
 
   const actionButton = {
     ...buttonStyle,
-    backgroundColor: "#0a74ff",
-    color: "#fff",
+    backgroundColor: "#7b2cbf",
+    color: "#ffffff",
   };
 
   const actionHover = {
-    backgroundColor: "#00e5ff",
-    color: "#000",
-    boxShadow: "0 0 10px #00e5ff",
+    backgroundColor: "#9d4edd",
+    color: "#ffffff",
+    boxShadow: "0 0 10px #9d4edd",
   };
 
   if (carrito.length === 0) {
     return (
       <div style={containerStyle}>
         <h2>🛒 Carrito de Compras</h2>
-        <p>Tu carrito está vacío.</p>
+        <p style={{ color: '#f1f1f1' }}>Tu carrito está vacío.</p>
         <Link to="/" style={{ ...actionButton, textDecoration: "none" }}>
           Volver a productos
         </Link>

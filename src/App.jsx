@@ -13,7 +13,7 @@ import DetalleProducto from "./paginas/DetalleProducto";
 import PaginaCarrito from "./paginas/PaginaCarrito";
 import PaginaCheckout from "./paginas/PaginaCheckout";
 import PaginaConfirmacion from "./paginas/PaginaConfirmacion";
-import PaginaAdmin from "./paginas/admin/PaginaAdmin"; 
+import PaginaAdmin from "./paginas/admin/PaginaAdmin";
 import PaginaSobreNosotros from "./paginas/PaginaSobreNosotros";
 import Audifonos from "./paginas/Audifonos";
 import PaginaTerminosCondiciones from "./paginas/PaginaTerminosCondiciones";
@@ -22,7 +22,6 @@ import PaginaPoliticaPrivacidad from "./paginas/PaginaPoliticaPrivacidad";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './App.css';
-import SubBarraNavegacion from "./componentes/SubBarraNavegacion";
 
 // --- GUARDIA: SOLO ADMIN ---
 const RutaAdmin = ({ children }) => {
@@ -60,13 +59,13 @@ function App() {
         <ProveedorCarrito>
           <div className="d-flex flex-column min-vh-100">
             <BarraNavegacion />
-            <SubBarraNavegacion />
             <div className="container-fluid main-content">
               <Routes>
                 {/* Rutas Públicas */}
                 <Route path="/" element={<PaginaProductos />} />
                 <Route path="/login" element={<PaginaLogin />} />
                 <Route path="/registro" element={<PaginaRegistro />} />
+                <Route path="/productos/samsung-con-descuento" element={<PaginaProductos />} />
                 <Route path="/productos/:categoria" element={<PaginaProductos />} />
                 <Route path="/producto/:id" element={<DetalleProducto />} />
                 <Route path="/carrito" element={<PaginaCarrito />} />

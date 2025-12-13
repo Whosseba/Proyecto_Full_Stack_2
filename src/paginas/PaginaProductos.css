@@ -53,3 +53,26 @@
   color: #4f2f8e; /* O el color principal de tu marca */
   font-weight: bold;
 }
+
+/* Estilos para la imagen de especificaciones de mouses */
+.especificaciones-container {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.especificaciones-container h2 {
+  color: #343a40;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.especificaciones-imagen {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}

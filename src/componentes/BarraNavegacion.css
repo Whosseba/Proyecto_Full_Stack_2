@@ -1,13 +1,14 @@
 .barra-navegacion {
   background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
-  padding: 15px 0;
+  padding: 20px 0; /* Aumentado el padding para más altura */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .barra-navegacion .navbar-brand img {
-  height: 45px;
+  height: 60px; /* Logo más grande */
+  width: auto;
 }
 
 .barra-navegacion .form-control {
@@ -39,6 +40,7 @@
   margin: 0 5px;
   padding: 8px 16px;
   border-radius: 999px; /* Pill shape */
+  font-size: 1.05rem; /* Fuente ligeramente más grande */
   transition: color 0.3s, background-color 0.3s;
 }
 
@@ -85,4 +87,37 @@
   color: #ffffff;
   text-decoration: underline;
   font-weight: 700;
+}
+
+/* Estilos para la SubBarraNavegacion */
+.sub-barra-navegacion {
+  background-color: #f8f9fa;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sub-nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center; /* Centra los elementos */
+  flex-grow: 1; /* Permite que la lista ocupe el espacio disponible */
+}
+
+.sub-nav-item {
+  margin: 0 15px; /* Espacio entre elementos */
+}
+
+.sub-nav-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.sub-nav-link:hover {
+  color: #5a4fcf; /* Color principal al pasar el mouse */
 }

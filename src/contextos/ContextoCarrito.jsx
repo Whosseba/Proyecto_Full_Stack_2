@@ -1,6 +1,14 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-const ContextoCarrito = createContext();
+const ContextoCarrito = createContext(null);
+
+export const useCarrito = () => {
+  const context = useContext(ContextoCarrito);
+  if (!context) {
+    throw new Error('useCarrito debe ser usado dentro de un ProveedorCarrito');
+  }
+  return context;
+};
 
 export const ProveedorCarrito = ({ children }) => {
   const [carrito, setCarrito] = useState(() => {
@@ -77,5 +85,3 @@ export const ProveedorCarrito = ({ children }) => {
     </ContextoCarrito.Provider>
   );
 };
-
-export const useCarrito = () => useContext(ContextoCarrito);

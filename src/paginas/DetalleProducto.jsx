@@ -2,7 +2,10 @@ import { useParams, Link } from "react-router-dom";
 import { useProductos } from "../contextos/ContextoProductos";
 import { useCarrito } from "../contextos/ContextoCarrito";
 import { useState } from "react";
-import './DetalleProducto.css'; // Importar el nuevo CSS
+import './DetalleProducto.css';
+import especificacionMouses from '../imagenes/especificacion_productos/especificacion_mouses.jpg';
+import especificacionTeclado from '../imagenes/especificacion_productos/especificacion_teclado.png';
+import especificacionLaptops from '../imagenes/especificacion_productos/especificacion_laptops.png';
 
 const DetalleProducto = () => {
   const { id } = useParams();
@@ -10,7 +13,6 @@ const DetalleProducto = () => {
   const { agregarAlCarrito } = useCarrito();
   const [agregado, setAgregado] = useState(false);
 
-  // Pantalla de carga
   if (productos.length === 0) {
     return (
       <div className="text-center mt-5 pt-5">
@@ -22,7 +24,6 @@ const DetalleProducto = () => {
 
   const producto = productos.find(p => p.id === parseInt(id));
 
-  // Producto no encontrado
   if (!producto) {
     return (
       <div className="text-center mt-5 text-light">
@@ -80,6 +81,27 @@ const DetalleProducto = () => {
           </div>
         </div>
       </div>
+
+      {producto.categoria === 'mouses' && (
+        <div className="especificaciones-adicionales-container">
+          <h4>Información Adicional del Mouse</h4>
+          <img src={especificacionMouses} alt="Especificaciones de Mouses" className="especificaciones-adicionales-imagen" />
+        </div>
+      )}
+
+      {producto.categoria === 'teclados' && (
+        <div className="especificaciones-adicionales-container">
+          <h4>Información Adicional del Teclado</h4>
+          <img src={especificacionTeclado} alt="Especificaciones de Teclados" className="especificaciones-adicionales-imagen" />
+        </div>
+      )}
+
+      {(producto.categoria === 'laptop' || producto.categoria === 'laptops') && (
+        <div className="especificaciones-adicionales-container">
+          <h4>Información Adicional de la Laptop</h4>
+          <img src={especificacionLaptops} alt="Especificaciones de Laptops" className="especificaciones-adicionales-imagen" />
+        </div>
+      )}
     </div>
   );
 };

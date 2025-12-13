@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contextos/ContextoAuth';
 import { useCarrito } from '../contextos/ContextoCarrito';
 import { FaShoppingCart, FaUserCircle, FaSearch } from 'react-icons/fa';
 
-import logo from '../imagenes/logos_empresa/logo_techstore.png';
+import logo from '../imagenes/logos_empresa/logo_techstore_oficial.png';
 import './BarraNavegacion.css';
 
 const BarraNavegacion = () => {
   const { usuario, logout } = useAuth();
-  const { carrito } = useCarrito();
-  const totalArticulos = carrito.reduce((total, item) => total + item.cantidad, 0);
+  const { carrito = [] } = useCarrito() || {};
+  const totalArticulos = carrito.reduce((total, item) => total + (item.cantidad || 0), 0);
   const [query, setQuery] = useState('');
-  const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -20,6 +19,15 @@ const BarraNavegacion = () => {
       navigate(`/productos?search=${encodeURIComponent(query)}`);
     }
   };
+
+  const categorias = [
+    { nombre: 'Laptops', path: '/productos/laptops' },
+    { nombre: 'Mouses', path: '/productos/mouses' },
+    { nombre: 'Teclados', path: '/productos/teclados' },
+    { nombre: 'Monitores', path: '/productos/monitores' },
+    { nombre: 'Gabinetes', path: '/productos/gabinetes' },
+    { nombre: 'Audifonos', path: '/productos/audifonos' },
+  ];
 
   return (
     <div className="fixed-top">
@@ -80,11 +88,26 @@ const BarraNavegacion = () => {
           </div>
         </div>
       </nav>
+      <nav className="sub-barra-navegacion">
+        <div className="container-fluid d-flex justify-content-between align-items-center">
+          <ul className="sub-nav-list">
+            {categorias.map((categoria) => (
+              <li key={categoria.path} className="sub-nav-item">
+                <Link to={categoria.path} className="sub-nav-link">{categoria.nombre}</Link>
+              </li>
+            ))}
+          </ul>
+          <div className="d-flex align-items-center">
+              <Link to="/sobre-nosotros" className="sub-nav-link me-4">Sobre Nosotros</Link>
+          </div>
+        </div>
+      </nav>
       <div className="promo-banner">
         ¡Retira GRATIS tus compras en nuestra tienda! Además, aprovecha miles de productos con Despacho Gratis <a href="#">AQUÍ</a>
       </div>
     </div>
   );
-};
 
+}
 export default BarraNavegacion;
+

@@ -51,7 +51,31 @@ export const ProveedorProductos = ({ children }) => {
           especificaciones: ["Certificación IPX7", "Ganchos de oreja ajustables", "Estuche de carga incluido"]
         }
       ];
-      setProductos([...data, ...mockAudifonos]);
+      const mockSamsung = [
+        {
+          id: 200,
+          nombre: "Auriculares Samsung Galaxy Buds Pro",
+          descripcion: "Sonido inmersivo y cancelación de ruido inteligente para una experiencia auditiva superior.",
+          precio: 189990,
+          precio_descuento: 149990,
+          categoria: "audifonos",
+          imagen: "/src/imagenes/productos_samsungs/audifonos_samsung.jpg",
+          especificaciones: ["Cancelación Activa de Ruido Inteligente", "Sonido de estudio con altavoces de 2 vías", "Resistencia al agua IPX7", "Hasta 8 horas de reproducción"],
+          oferta: true
+        },
+        {
+          id: 201,
+          nombre: "Televisor Samsung 55\" Crystal UHD 4K",
+          descripcion: "Colores vibrantes y detalles nítidos con la tecnología Crystal UHD de Samsung.",
+          precio: 499990,
+          precio_descuento: 399990,
+          categoria: "televisores",
+          imagen: "/src/imagenes/productos_samsungs/televisor_samsung.png",
+          especificaciones: ["Procesador Crystal 4K", "Diseño sin bordes", "Compatible con HDR10+", "Smart TV con Tizen"],
+          oferta: true
+        }
+      ];
+      setProductos([...data, ...mockAudifonos, ...mockSamsung]);
     } catch (error) {
       console.error("Error cargando productos:", error);
       setError("Error al cargar los productos. Revisa que el Backend esté encendido.");

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useProductos } from "../contextos/ContextoProductos";
 import TarjetaProducto from "../componentes/TarjetaProducto";
 import { motion } from "framer-motion";
@@ -12,7 +12,9 @@ const PaginaProductos = () => {
   const categoriaFormateada = categoria ? categoria.replace(/-/g, ' ') : null;
 
   const productosFiltrados = categoria
-    ? productos.filter(p => p.categoria?.toLowerCase() === categoriaFormateada.toLowerCase())
+    ? categoria === 'samsung-con-descuento'
+      ? productos.filter(p => p.nombre.toLowerCase().includes('samsung'))
+      : productos.filter(p => p.categoria?.toLowerCase() === categoriaFormateada.toLowerCase())
     : productos;
 
   const animacionContenedor = {
@@ -30,7 +32,11 @@ const PaginaProductos = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const nombreCategoria = categoria ? categoria.replace(/-/g, ' ') : 'Todos los productos';
+  const nombreCategoria = categoria
+    ? categoria === 'samsung-con-descuento'
+      ? 'Productos Samsung con Descuento'
+      : categoria.replace(/-/g, ' ')
+    : 'Todos los productos';
 
   if (cargando) {
     return (
@@ -77,7 +83,9 @@ const PaginaProductos = () => {
           <div id="carouselExampleControls" className="carousel slide mb-5" data-bs-ride="carousel">
             <div className="carousel-inner">
               <div className="carousel-item active">
-                <img src={imagenSamsung} className="d-block w-100" alt="Descuentos Samsung" />
+                <Link to="/productos/samsung-con-descuento">
+                  <img src={imagenSamsung} className="d-block w-100" alt="Descuentos Samsung" />
+                </Link>
               </div>
               <div className="carousel-item">
                 <img src={imagenDescuentos} className="d-block w-100" alt="Descuentos General" />
