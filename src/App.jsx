@@ -14,10 +14,15 @@ import PaginaCarrito from "./paginas/PaginaCarrito";
 import PaginaCheckout from "./paginas/PaginaCheckout";
 import PaginaConfirmacion from "./paginas/PaginaConfirmacion";
 import PaginaAdmin from "./paginas/admin/PaginaAdmin";
+import PaginaSamsung from "./paginas/PaginaSamsung";
+import PaginaOfertasLive from "./paginas/PaginaOfertasLive";
 import PaginaSobreNosotros from "./paginas/PaginaSobreNosotros";
 import Audifonos from "./paginas/Audifonos";
 import PaginaTerminosCondiciones from "./paginas/PaginaTerminosCondiciones";
 import PaginaPoliticaPrivacidad from "./paginas/PaginaPoliticaPrivacidad";
+import PaginaFAQ from "./paginas/PaginaFAQ";
+import PaginaContacto from "./paginas/PaginaContacto";
+import PaginaGraficas from "./paginas/PaginaGraficas";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -65,13 +70,18 @@ function App() {
                 <Route path="/" element={<PaginaProductos />} />
                 <Route path="/login" element={<PaginaLogin />} />
                 <Route path="/registro" element={<PaginaRegistro />} />
-                <Route path="/productos/samsung-con-descuento" element={<PaginaProductos />} />
+                <Route path="/productos/samsung-con-descuento" element={<PaginaSamsung />} />
+                <Route path="/ofertas/samsung" element={<PaginaSamsung />} />
+                <Route path="/ofertas/live-sale" element={<PaginaOfertasLive />} />
+                <Route path="/graficas" element={<PaginaGraficas />} />
                 <Route path="/productos/:categoria" element={<PaginaProductos />} />
                 <Route path="/producto/:id" element={<DetalleProducto />} />
                 <Route path="/carrito" element={<PaginaCarrito />} />
                 <Route path="/sobre-nosotros" element={<PaginaSobreNosotros />} />
                 <Route path="/terminos-y-condiciones" element={<PaginaTerminosCondiciones />} />
                 <Route path="/politica-de-privacidad" element={<PaginaPoliticaPrivacidad />} />
+                <Route path="/preguntas-frecuentes" element={<PaginaFAQ />} />
+                <Route path="/contacto" element={<PaginaContacto />} />
 
                 {/* Rutas Privadas (Cualquier usuario) */}
                 <Route path="/checkout" element={<RutaProtegida><PaginaCheckout /></RutaProtegida>} />

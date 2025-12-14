@@ -30,6 +30,7 @@ export const ProveedorProductos = ({ children }) => {
           precio: 129990,
           categoria: "audifonos",
           imagen: "/src/imagenes/audifonos/audifonos_image.png",
+          imagenEspecificacion: "/src/imagenes/especificacion_productos/especificacion_audifonos.jpeg",
           especificaciones: ["Conexión inalámbrica de 2.4 GHz", "Micrófono con cancelación de ruido", "Batería de hasta 20 horas"]
         },
         {
@@ -39,6 +40,7 @@ export const ProveedorProductos = ({ children }) => {
           precio: 89990,
           categoria: "audifonos",
           imagen: "/src/imagenes/audifonos/audifonos_image.png",
+          imagenEspecificacion: "/src/imagenes/especificacion_productos/especificacion_audifonos.jpeg",
           especificaciones: ["Respuesta de frecuencia plana", "Diseño circumaural cerrado", "Cable desmontable"]
         },
         {
@@ -48,6 +50,7 @@ export const ProveedorProductos = ({ children }) => {
           precio: 49990,
           categoria: "audifonos",
           imagen: "/src/imagenes/audifonos/audifonos_image.png",
+          imagenEspecificacion: "/src/imagenes/especificacion_productos/especificacion_audifonos.jpeg",
           especificaciones: ["Certificación IPX7", "Ganchos de oreja ajustables", "Estuche de carga incluido"]
         }
       ];
@@ -60,6 +63,7 @@ export const ProveedorProductos = ({ children }) => {
           precio_descuento: 149990,
           categoria: "audifonos",
           imagen: "/src/imagenes/productos_samsungs/audifonos_samsung.jpg",
+          imagenEspecificacion: "/src/imagenes/especificacion_productos/especificacion_audifonos.jpeg",
           especificaciones: ["Cancelación Activa de Ruido Inteligente", "Sonido de estudio con altavoces de 2 vías", "Resistencia al agua IPX7", "Hasta 8 horas de reproducción"],
           oferta: true
         },
@@ -75,7 +79,87 @@ export const ProveedorProductos = ({ children }) => {
           oferta: true
         }
       ];
-      setProductos([...data, ...mockAudifonos, ...mockSamsung]);
+      const mockOfertasLive = [
+        {
+          id: 300,
+          nombre: "iPhone 17 Pro Max",
+          descripcion: "Apple Intelligence integrado. Pantalla Super Retina XDR con ProMotion, Chip A19 y un revolucionario sistema de cámaras Fusion de 48 MP.",
+          precio: 1499990,
+          categoria: "celulares",
+          imagen: "/src/imagenes/productos_normales/iphone_17_imagen.jpg",
+          especificaciones: [
+            "Pantalla Super Retina XDR de 6,3 pulgadas con ProMotion y Dynamic Island",
+            "Clasificación IP68 de resistencia al agua y al polvo",
+            "Apple Intelligence integrado para una experiencia más personal",
+            "Chip A19 con CPU de 6 núcleos y GPU de 5 núcleos",
+            "Sistema de dos cámaras Fusion de 48 MP (principal y ultra gran angular)",
+            "Zoom óptico de 4x y zoom digital de hasta 10x",
+            "Grabación de video 4K Dolby Vision y modo Cine",
+            "Cámara frontal Center Stage de 18 MP con autoenfoque",
+            "Batería para hasta 30 horas de reproducción de video",
+            "Carga rápida: 50% en 20 minutos con adaptador de 40W",
+            "Conectividad 5G, Wi-Fi 7 y Bluetooth 6",
+            "Botón de Acción y control de Cámara dedicados",
+            "Entrada USB-C con soporte para DisplayPort",
+            "Face ID para autenticación segura",
+            "iOS 26 con funcionalidades avanzadas de privacidad y accesibilidad"
+          ]
+        },
+        {
+          id: 301,
+          nombre: "Refrigerador No-Frost 300L",
+          descripcion: "Conserva tus alimentos frescos por más tiempo con la tecnología No-Frost.",
+          precio: 349990,
+          categoria: "electrodomesticos",
+          imagen: "/src/imagenes/productos_normales/refrigerador_imagen.jpg",
+          especificaciones: ["Capacidad de 300 litros", "Eficiencia energética A+", "Sistema No-Frost"]
+        }
+      ];
+      
+      const mockGraficas = [
+        {
+          id: 400,
+          nombre: "AMD Radeon RX 7800 XT",
+          descripcion: "Potencia y rendimiento para los juegos más exigentes.",
+          precio: 549990,
+          categoria: "Graficas",
+          imagen: "/src/imagenes/graficas/AMD_imagen.jpg",
+          especificaciones: [
+            "Arquitectura: RDNA 3",
+            "Memoria: 16GB GDDR6",
+            "Frecuencia de reloj: Hasta 2.43 GHz",
+            "Consumo: 263W"
+          ]
+        },
+        {
+          id: 401,
+          nombre: "Intel Arc A770",
+          descripcion: "La nueva generación de gráficos de Intel para gaming y creación de contenido.",
+          precio: 499990,
+          categoria: "Graficas",
+          imagen: "/src/imagenes/graficas/intel_imagen.jpg",
+          especificaciones: [
+            "Arquitectura: Xe HPG",
+            "Memoria: 16GB GDDR6",
+            "Frecuencia de reloj: 2.1 GHz",
+            "Consumo: 225W"
+          ],
+          imagenEspecificacion: "/src/imagenes/especificacion_productos/especificacion_grafica.jpeg"
+        }
+      ];
+
+      // Combinar todos los productos
+      let todosLosProductos = [...data, ...mockAudifonos, ...mockSamsung, ...mockOfertasLive, ...mockGraficas];
+
+      // Aplicar descuento a todos los productos Samsung en un solo lugar
+      todosLosProductos = todosLosProductos.map(p => {
+        if (p.nombre.toLowerCase().includes('samsung')) {
+          return { ...p, precioConDescuento: p.precio * 0.6 };
+        }
+        return p;
+      });
+
+      setProductos(todosLosProductos);
     } catch (error) {
       console.error("Error cargando productos:", error);
       setError("Error al cargar los productos. Revisa que el Backend esté encendido.");

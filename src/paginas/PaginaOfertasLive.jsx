@@ -2,26 +2,20 @@ import { useProductos } from '../contextos/ContextoProductos';
 import TarjetaProducto from '../componentes/TarjetaProducto';
 import './PaginaProductos.css';
 
-const PaginaSamsung = () => {
+const PaginaOfertasLive = () => {
   const { productos, cargando, error } = useProductos();
 
-  // Creamos la ilusión de un 40% de descuento sobre el precio actual.
-  const productosEnOferta = productos
-    .filter(p => p.nombre.toLowerCase().includes('samsung'))
-    .map(p => {
-      const precioOriginalInflado = p.precio / 0.6; // Calculamos un "antes"
-      return { ...p, 
-        precio: precioOriginalInflado, 
-        precioConDescuento: p.precio // El precio real se muestra como la oferta
-      };
-    });
+  // IDs de los productos específicos para esta oferta
+  const idsOferta = [300, 301]; 
+
+  const productosEnOferta = productos.filter(p => idsOferta.includes(p.id));
 
   return (
     <div className="pagina-productos">
       {/* Banner de la categoría */}
-      <div className="banner-categoria text-white text-center py-5 mb-5" style={{ background: 'linear-gradient(90deg, #0057b7, #002d5c)' }}>
-        <h1 className="display-4 fw-bold">Ofertas Samsung</h1>
-        <p className="lead">¡Aprovecha un 40% de descuento en productos seleccionados!</p>
+      <div className="banner-categoria text-white text-center py-5 mb-5" style={{ background: 'linear-gradient(90deg, #4e54c8, #8f94fb)' }}>
+        <h1 className="display-4 fw-bold">Live Sale Days</h1>
+        <p className="lead">¡Los descuentos continúan! Aprovecha estas ofertas increíbles.</p>
       </div>
       
       <div className="container">
@@ -38,7 +32,7 @@ const PaginaSamsung = () => {
               </div>
             ))
           ) : (
-            !cargando && <p className="text-center text-muted">No hay ofertas especiales de Samsung disponibles.</p>
+            !cargando && <p className="text-center text-muted">Las ofertas especiales no están disponibles en este momento.</p>
           )}
         </div>
       </div>
@@ -46,4 +40,4 @@ const PaginaSamsung = () => {
   );
 };
 
-export default PaginaSamsung;
+export default PaginaOfertasLive;

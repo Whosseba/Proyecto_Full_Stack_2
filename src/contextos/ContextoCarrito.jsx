@@ -35,6 +35,9 @@ export const ProveedorCarrito = ({ children }) => {
 
   // Agregar producto al carrito
   const agregarAlCarrito = (producto) => {
+    // Determinar el precio a usar: el de descuento si existe, si no, el normal.
+    const precioFinal = producto.precioConDescuento ?? producto.precio;
+
     setCarrito((prev) => {
       const existe = prev.find((p) => p.id === producto.id);
       if (existe) {
@@ -42,7 +45,8 @@ export const ProveedorCarrito = ({ children }) => {
           p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
         );
       } else {
-        return [...prev, { ...producto, cantidad: 1 }];
+        // Al agregar por primera vez, nos aseguramos de que el 'precio' sea el final.
+        return [...prev, { ...producto, precio: precioFinal, cantidad: 1 }];
       }
     });
   };

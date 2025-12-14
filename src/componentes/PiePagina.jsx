@@ -5,12 +5,14 @@ import {
   FaTwitter, 
   FaInstagram, 
   FaCreditCard, 
-  FaUniversity, 
-  FaMoneyBillWave, 
-  FaLandmark 
+  FaMoneyBillWave
 } from 'react-icons/fa';
 import { SiMercadopago } from 'react-icons/si';
 import './PiePagina.css';
+
+import logoSantander from '../imagenes/logos_ventas/logo_banco_santander.jpg';
+import logoBancoEstado from '../imagenes/logos_ventas/logo_banco_estado.png';
+import logoBancoChile from '../imagenes/logos_ventas/Logo_banco_chile.jpg';
 
 const PiePagina = () => (
   <footer className="pie-pagina">
@@ -41,9 +43,10 @@ const PiePagina = () => (
         <div className="medios-pago-container">
             <FaCreditCard title="Webpay" className="logo-pago-icon" />
             <SiMercadopago title="Mercado Pago" className="logo-pago-icon" />
-            <FaLandmark title="Santander" className="logo-pago-icon" />
-            <FaUniversity title="Banco Estado" className="logo-pago-icon" />
             <FaMoneyBillWave title="Transferencia" className="logo-pago-icon" />
+            <img src={logoSantander} alt="Banco Santander" title="Banco Santander" className="logo-pago-img" />
+            <img src={logoBancoEstado} alt="Banco Estado" title="Banco Estado" className="logo-pago-img" />
+            <img src={logoBancoChile} alt="Banco de Chile" title="Banco de Chile" className="logo-pago-img" />
         </div>
       </div>
       <div className="footer-section">

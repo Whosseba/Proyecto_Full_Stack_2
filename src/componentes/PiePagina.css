@@ -79,6 +79,12 @@
   color: #f8f9fa;
 }
 
+.logo-pago-img {
+  height: 30px; /* Ajusta la altura de los logos */
+  width: auto;
+  border-radius: 4px; /* Bordes redondeados para suavizar */
+}
+
 .footer-bottom {
   text-align: center;
   margin-top: 40px;

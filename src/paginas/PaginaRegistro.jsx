@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../contextos/ContextoAuth";
 import { useNavigate } from "react-router-dom";
 
+import "./PaginaRegistro.css"; // Importar el nuevo archivo CSS
 const PaginaRegistro = () => {
   const { login } = useAuth(); // Usaremos esto para auto-login después de registrar
   const navigate = useNavigate();
@@ -83,74 +84,14 @@ const PaginaRegistro = () => {
     }
   };
 
-  // --- ESTILOS ---
-  const containerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "100vh",
-    background: "linear-gradient(135deg, #0f2027, #203a43, #2c5364)",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  };
-
-  const cardStyle = {
-    backdropFilter: "blur(10px)",
-    background: "rgba(0, 0, 0, 0.6)",
-    padding: "30px 40px",
-    borderRadius: "15px",
-    boxShadow: "0 0 20px rgba(0, 123, 255, 0.7)",
-    width: "400px",
-    color: "#fff",
-    textAlign: "center",
-  };
-
-  const inputStyle = {
-    width: "100%",
-    padding: "12px",
-    margin: "10px 0",
-    borderRadius: "8px",
-    border: "1px solid #0ff",
-    outline: "none",
-    background: "rgba(255,255,255,0.05)",
-    color: "#fff",
-    fontSize: "16px",
-    transition: "0.3s",
-  };
-
-  const buttonStyle = {
-    width: "100%",
-    padding: "12px",
-    borderRadius: "8px",
-    border: "none",
-    backgroundColor: "#00f",
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: "16px",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-    marginTop: "10px",
-  };
-
-  const errorStyle = {
-    color: "#ff4d4d",
-    marginBottom: "10px",
-    fontWeight: "bold",
-    fontSize: "14px"
-  };
-
-  const footerStyle = {
-    marginTop: "15px",
-    fontSize: "14px",
-  };
-
   return (
-    <div style={containerStyle}>
-      <div style={cardStyle}>
-        <h2 style={{ marginBottom: "20px" }}>Registro de Usuario</h2>
+    <div className="registro-container">
+      <div className="registro-card">
+        <h2>Registro de Usuario</h2>
         
         {/* Mensajes de Error */}
-        {errorRut && <p style={errorStyle}>{errorRut}</p>}
-        {errorRegistro && <p style={errorStyle}>{errorRegistro}</p>}
+        {errorRut && <p className="error-message">{errorRut}</p>}
+        {errorRegistro && <p className="error-message">{errorRegistro}</p>}
         
         <form onSubmit={handleRegistro}>
           <input
@@ -159,7 +100,7 @@ const PaginaRegistro = () => {
             value={rut}
             onChange={(e) => setRut(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
           <input
             type="text"
@@ -167,7 +108,7 @@ const PaginaRegistro = () => {
             value={nombreCompleto}
             onChange={(e) => setNombreCompleto(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
           <input
             type="email"
@@ -175,7 +116,7 @@ const PaginaRegistro = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
           <input
             type="password"
@@ -183,7 +124,7 @@ const PaginaRegistro = () => {
             value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
           <input
             type="text"
@@ -191,25 +132,17 @@ const PaginaRegistro = () => {
             value={ubicacion}
             onChange={(e) => setUbicacion(e.target.value)}
             required
-            style={inputStyle}
+            className="registro-input"
           />
           <button
             type="submit"
-            style={buttonStyle}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = "#00ffff";
-              e.currentTarget.style.color = "#000";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = "#00f";
-              e.currentTarget.style.color = "#fff";
-            }}
+            className="registro-button"
           >
             Registrarse
           </button>
         </form>
-        <p style={footerStyle}>
-          ¿Ya tienes cuenta? <a href="/login" style={{ color: "#0ff", textDecoration: "underline" }}>Iniciar sesión</a>
+        <p className="registro-footer">
+          ¿Ya tienes cuenta? <a href="/login">Iniciar sesión</a>
         </p>
       </div>
     </div>

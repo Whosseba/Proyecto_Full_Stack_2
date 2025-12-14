@@ -11,7 +11,13 @@ const TarjetaProducto = ({ producto }) => {
   const imagenProducto = producto.imagen || 'https://via.placeholder.com/400x300.png?text=Sin+Imagen';
 
   const handleAgregar = () => {
-    agregarAlCarrito(producto);
+    // Si hay descuento, se usa ese precio para el carrito.
+    // Si no, se usa el precio normal.
+    const productoParaAgregar = {
+      ...producto,
+    };
+
+    agregarAlCarrito(productoParaAgregar);
     setAgregado(true);
     setTimeout(() => setAgregado(false), 800); // Resetear animación
   };
@@ -30,9 +36,25 @@ const TarjetaProducto = ({ producto }) => {
         <p className="tarjeta-producto-descripcion">
           {producto.descripcion}
         </p>
-        <p className="tarjeta-producto-precio">
-          ${producto.precio.toLocaleString('es-CL')}
-        </p>
+        
+        <div className="tarjeta-producto-precio-contenedor">
+          {producto.precioConDescuento ? (
+            <>
+              <span 
+                className="precio-original" 
+                style={{ textDecoration: 'line-through', color: '#a9a9a9', marginRight: '10px' }}
+              >
+                ${producto.precio.toLocaleString('es-CL')}
+              </span>
+              <span 
+                className="precio-descuento"
+                style={{ color: '#28a745', fontWeight: 'bold', fontSize: '1.2rem' }}
+              >${producto.precioConDescuento.toLocaleString('es-CL')}</span>
+            </>
+          ) : (
+            <span className="precio-normal">${producto.precio.toLocaleString('es-CL')}</span>
+          )}
+        </div>
 
         <div className="tarjeta-producto-botones">
           <button
@@ -55,4 +77,3 @@ const TarjetaProducto = ({ producto }) => {
 };
 
 export default TarjetaProducto;
-
