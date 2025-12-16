@@ -47,7 +47,7 @@ const PaginaCheckout = () => {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/pedidos", {
+            const response = await fetch("/api/pedidos", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
