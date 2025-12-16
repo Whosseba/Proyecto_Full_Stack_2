@@ -9,7 +9,7 @@ export const ProveedorProductos = ({ children }) => {
     const [error, setError] = useState(null);       
     
     const { token } = useAuth(); 
-    const API_URL = "http://localhost:8080/api/productos";
+    const API_URL = "/api/productos";
 
     // Cargar productos del Backend al iniciar
     useEffect(() => {

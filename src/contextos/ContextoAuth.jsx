@@ -19,7 +19,7 @@ export const ProveedorAuth = ({ children }) => {
     if (!currentToken) return;
     setCargandoUsuarios(true);
     try {
-        const response = await fetch("http://localhost:8080/api/admin/usuarios", {
+        const response = await fetch("/api/admin/usuarios", {
             headers: { 'Authorization': `Bearer ${currentToken}` }
         });
         if (response.ok) {
@@ -68,7 +68,7 @@ export const ProveedorAuth = ({ children }) => {
 
   const login = async (email, password) => {
       try {
-        const response = await fetch("http://localhost:8080/api/auth/login", {
+        const response = await fetch("/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
@@ -110,7 +110,7 @@ export const ProveedorAuth = ({ children }) => {
   const eliminarUsuario = async (id) => {
     if (!token) return false;
     try {
-        const response = await fetch(`http://localhost:8080/api/admin/usuarios/${id}`, {
+        const response = await fetch(`/api/admin/usuarios${id}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -126,7 +126,7 @@ export const ProveedorAuth = ({ children }) => {
   const editarUsuario = async (usuarioActualizado) => {
     if (!token) return false;
     try {
-        const response = await fetch(`http://localhost:8080/api/admin/usuarios/${usuarioActualizado.id}`, {
+        const response = await fetch(`"/api/admin/usuarios/"${usuarioActualizado.id}`, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',

@@ -5,7 +5,7 @@ import { useCarrito } from "../contextos/ContextoCarrito";
 import { Link } from "react-router-dom";
 
 // Esto debe apuntar a tu servidor Spring Boot
-const BACKEND_URL = 'http://localhost:8080'; 
+const BACKEND_URL = ''; 
 
 const TarjetaProducto = ({ producto, enOferta = false }) => {
   const { agregarAlCarrito } = useCarrito();

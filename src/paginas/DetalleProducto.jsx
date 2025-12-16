@@ -12,7 +12,7 @@ import especificacionesMonitores from '../imagenes/especificaciones/especificaci
 import especificacionesMouses from '../imagenes/especificaciones/especificaciones_mouses.jpeg';
 import especificacionesTeclados from '../imagenes/especificaciones/especificaciones_teclados.jpg';
 
-const BACKEND_URL = 'http://localhost:8080';
+const BACKEND_URL = '';
 
 const imagenesEspecificaciones = {
     // gabinetes: especificacionesGabinetes,
