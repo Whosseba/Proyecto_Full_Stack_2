@@ -1,0 +1,203 @@
+/* Barra de navegación */
+.barra-navegacion {
+  width: 100%;
+  background-color: var(--color-boton);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 10px var(--color-primario-hover);
+}
+
+.barra-navegacion a,
+.barra-navegacion button {
+  margin-left: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  color: var(--color-primario-hover)
+}
+
+/* Espacio debajo de la barra */
+body > .container {
+  margin-top: 80px;
+  flex: 1;
+}
+
+/* Contenedor general */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Cards de productos */
+.card {
+  background-color: var(--color-fondo-claro);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-texto);
+}
+
+.card-text {
+  margin-bottom: 0.5rem;
+}
+
+.card-text.fw-bold {
+  font-weight: bold;
+  color: var(--color-primario);
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  background-color: var(--color-boton);
+  color: #fff;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .card img {
+    height: 150px;
+  }
+
+  .barra-navegacion {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body h5 {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card-body p {
+  font-size: 0.9rem;
+}
+
+.card-body .precio {
+  font-weight: bold;
+  color: #1a73e8;
+  font-size: 1rem;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+
+/* Para tachar el precio original */
+.precio-original {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 0.5rem;
+    font-size: 0.9em;
+}
+
+/* Para resaltar el precio de oferta */
+.precio-oferta {
+    color: var(--color-primario); 
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.badge-oferta {
+    background-color: #ff4d4f; 
+    color: white;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85em; 
+    font-weight: bold;
+    margin-left: 0.5rem;
+    border: 1px solid white; 
+}
+/*animaciones*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Aanimación productos */
+.seccion-productos{
+  animation: fadeIn 1s ease-out; /* Nombre, duración, función de tiempo */
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95); /* Empieza un poco más pequeño */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Aanimación página de detalle */
+.pagina-detalle-producto {
+  animation: popIn 0.4s ease-out forwards; 
+}
+
+/* de colores RGB */
+@keyframes borderGlow {
+  0% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; } /* Magenta */
+  33% { box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; } /* Verde */
+  66% { box-shadow: 0 0 10px #0000ff, 0 0 20px #0000ff; } /* Azul */
+  100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; } /* De vuelta a Magenta */
+}
+
+/* 2. Estilo base del contenedor del producto */
+.borde-rgb-gamer {
+  border: 2px solid transparent; /* El borde base puede ser transparente */
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #1a1a1a; /* Fondo oscuro para el contraste */
+  animation: borderGlow 4s linear infinite; /* 4 segundos, velocidad constante, repetición infinita */
+}
+

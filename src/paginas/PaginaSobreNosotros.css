@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+.sobre-nosotros-container {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+  padding: 40px 20px;
+  border-radius: 15px;
+  border: 1px solid #0f3460;
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+  font-family: 'Orbitron', sans-serif; /* A futuristic, gamer-style font */
+}
+
+.sobre-nosotros-container h2, .sobre-nosotros-container h3 {
+  color: #00bfff; /* Deep Sky Blue */
+  text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.section-card {
+  background-color: #162447;
+  border: 1px solid #0f3460;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(0, 191, 255, 0.7);
+}
+
+.creadores-card {
+  text-align: center;
+}
+
+.creadores-card .icon {
+  font-size: 3rem;
+  color: #00bfff;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px #00bfff;
+}
+
+.contact-info p {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.contact-info .icon {
+  margin-right: 15px;
+  color: #00bfff;
+  font-size: 1.5rem;
+}
+
+.title-animation {
+  animation: flicker 1.5s infinite alternate;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, 0 0 30px #00bfff;
+  }
+  50% {
+    text-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff;
+  }
+}
